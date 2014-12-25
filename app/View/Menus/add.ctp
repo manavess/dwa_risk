@@ -1,0 +1,31 @@
+<div class="menus form">
+<?php echo $this->Html->addCrumb("Menu", '/Menus'); ?>
+    <?php echo $this->Form->create('Menu'); ?>
+    <fieldset>
+        <legend><?php echo __('Add Menu'); ?></legend>
+        <?php
+        echo $this->Form->input('name', array('required'=>'false','lower' => true));
+        echo $this->Form->input('url', array('required'=>'false','lower' => true));
+        echo $this->Form->input('require_login', array(
+                                'type' => 'radio',
+                                'options' => array('Y' => 'YES', 'N' => 'NO'),
+                                'default' => 'Y'
+                        )
+                );
+        echo $this->Form->input('status', array(
+                                'type' => 'radio',
+                                'options' => array('Y' => 'YES', 'N' => 'NO'),
+                                'default' => 'Y'
+                        )
+                );
+        ?>
+    </fieldset>
+    <?php echo $this->Form->end(__('Submit')); ?>
+</div>
+<div class="actions">
+    <h3><?php echo __('Actions'); ?></h3>
+    <ul>
+
+        <li><?php echo $this->Html->link(__('List Menus'), array('action' => 'index')); ?></li>
+    </ul>
+</div>

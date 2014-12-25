@@ -1,0 +1,247 @@
+/*
+Template Name: Educational
+File: LoginSlider CSS
+Author: OS Templates
+Author URI: http://www.os-templates.com/
+Licence: <a href="http://www.os-templates.com/template-terms">Website Template Licence</a>
+
+Inspired By: Sliding Login Panel with jQuery from http://web-kreation.com/index.php/tutorials/nice-clean-sliding-login-panel-built-with-jquery/
+*/
+
+#topbar{
+	position:relative;
+	margin:0 auto 0;
+	display:block;
+	width:960px;
+	font-size:12px;
+	float:left;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	}
+
+#topbar a{
+	color:#F8F7DF;
+	background-color:#48282f;
+	}
+
+#topbar a:hover{
+	color:#8B785F;
+	background-color:#48282f;
+	}
+
+#slidepanel{
+	display:none;
+	position:relative;
+	width:960px;
+	overflow:hidden;
+	color:#FFFFFF;
+	background:url("../img/tab_l.gif") bottom left no-repeat #48282f;
+	}
+
+/* ----------------------------------------------Content-------------------------------------*/
+
+#topbar .topbox{
+	display:block;
+	float:left;
+	width:500px;
+	margin:0 30px 0 0;
+	padding:15px;
+	}
+
+#topbar .last{
+	margin-right:0;
+	}
+
+#topbar h1, #topbar h2, #topbar h3, #topbar h4, #topbar h5, #topbar h6{
+	background:none;
+	color:#ffffff;
+	font-size:18px;
+	margin:0 0 15px 0;
+	padding:0 0 8px 0;
+	border-bottom:1px dotted #E7E6E6;
+	font-family:Georgia,"Times New Roman",Times,serif;
+	font-weight:normal;
+	}
+	
+	.mar-left
+	{
+		margin-left:7px !important;
+	}
+
+#topbar p{
+	margin:0 0 15px 0;
+	padding:0;
+	line-height:1.6em;
+	}
+
+#topbar p.readmore{
+	display:block;
+	margin:0;
+	text-align:right;
+	line-height:normal;
+	font-weight:bold;
+	}
+
+/* ----------------------------------------------Forms-------------------------------------*/
+
+#topbar form, #topbar fieldset, #topbar legend{margin:0; padding:0; border:none;}
+#topbar legend{display:none;}
+#topbar input, #topbar textarea, #topbar select{font-size:12px; font-family:Verdana, Arial, Helvetica, sans-serif;}
+
+#topbar label{
+	display:block;
+	width:390px;
+	margin:0 0 12px 0;
+	padding:0;
+	}
+
+#topbar label input{
+	display:block;
+	width:auto;
+	margin:2px 2px 5px 6px;
+	padding:3px;
+	color:#333333;
+	background-color:#F8F7DF;
+	border:1px solid #CCCCCC;
+	}
+
+#topbar .topbox p input{
+	padding:3px 10px;
+	color:#666666;
+	background-color:#F7F7F7;
+	border:1px solid #CCCCCC;
+	cursor:pointer;
+	}
+	
+#topbar div.submit
+{
+	float:left;
+	text-align:left;
+	padding-right:0px;
+}
+	
+#topbar div.submit input{
+	padding:3px 10px;
+	color:#666666;
+	background:#F7F7F7;
+	border:1px solid #CCCCCC;
+	cursor:pointer;
+	font-family:Verdana,Arial,Helvetica,sans-serif;
+	font-size:12px;
+	border-radius:0;
+	font-weight:normal;
+	text-shadow:none;
+        width: 54%;
+	}
+        
+#topbar div.reset
+{
+	float:left;
+	text-align:left;
+	padding-right:0px;
+        margin: -32px 0px 0px 67px;
+        padding:2px 10px;
+}
+	
+#topbar div.reset input{
+	padding:3px 10px;
+	color:#666666;
+	background:#F7F7F7;
+	border:1px solid #CCCCCC;
+	cursor:pointer;
+	font-family:Verdana,Arial,Helvetica,sans-serif;
+	font-size:12px;
+	border-radius:0;
+	font-weight:normal;
+	text-shadow:none;
+	}
+
+	
+#topbar input.pupillogin{
+	padding:3px 10px;
+	color:#666666;
+	background-color:#F7F7F7;
+	border:1px solid #CCCCCC;
+	cursor:pointer;
+	}
+
+#topbar label input.checkbox{
+	display:inline;
+	width:auto;
+	margin:0 5px 0 0;
+	padding:0;
+	} 
+
+/* ----------------------------------------------Tab Panel-------------------------------------*/
+
+#loginpanel, #logoutpanel{
+	display:block;
+	position:relative;
+    top:0;
+	}
+
+#loginpanel ul, #logoutpanel ul{
+	display:block;
+	float:right;
+	width:130px;
+	height:24px;
+	margin:0;
+	padding:6px 0 0 0;
+	text-align:center;
+	color:#CCCCCC;
+	background-color:#48282f;
+	}
+
+#loginpanel li, #logoutpanel li{
+	display:block;
+	height:24px;
+	margin:0;
+	padding:0;
+	}
+
+#loginpanel li.left, #logoutpanel li.left{
+	float:left;
+	text-align:right;
+	
+	background:url("../img/tab_l.gif") no-repeat bottom left;
+	}
+
+#loginpanel li.right,  #logoutpanel li.right{
+/*	float:right;
+	text-align:left;*/
+	background:url("../img/tab_r.gif") no-repeat bottom right;
+	}
+
+#loginpanel a{
+	display:block;
+/*	width:96px;*/
+        width:126px;
+	font-weight:normal;
+        text-align: center;
+	}
+	
+	#logoutpanel a{
+	display:block;
+	width:80px;
+	font-weight:normal;
+	}
+	
+#topbar #UserLoginForm .submit input[type="submit"]
+	{
+		background-color:#F7F7F7;
+		border:1px solid #CCCCCC;
+		color:#666666;
+		padding:3px 10px;
+	}
+        
+       #forgot-password{ width:150%; /*margin: 0 auto;  float: left; margin-left: 11%;*/}
+        
+       #forgot-password-submit{   width:100%;/* float: left;*/}
+         
+      .forgot-password-text{ line-height:25px; color:#cc5446;/*   padding-left: 11%;*/}
+          .employee-add{ margin-left: -5px;}
+          
+          
+          .forgot-password-main{width:30%; height:150px; border:solid #cccccc 1px; margin:0 auto;}          
+        
+          
+         .forgot-password-main-outer{ width:96%; background-color:#eeedcf; padding: 2%; float: left; font-size: 14px;}

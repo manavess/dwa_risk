@@ -1,0 +1,6 @@
+[submodule "Plugin/TinyMCE"]
+	path = Plugin/TinyMCE
+	url = git://github.com/CakeDC/TinyMCE.git
+[submodule "Plugin/Upload"]
+	path = Plugin/Upload
+	url = git://github.com/josegonzalez/upload.git

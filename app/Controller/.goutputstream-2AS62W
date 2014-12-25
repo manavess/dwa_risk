@@ -1,0 +1,113 @@
+<?php
+App::uses('AppController', 'Controller');
+/**
+ * StudentAlotments Controller
+ *
+ * @property StudentAlotment $StudentAlotment
+ */
+class StudentAlotmentsController extends AppController {
+
+/**
+ * index method
+ *
+ * @return void
+ */
+	public function index() {
+		$this->StudentAlotment->recursive = 2;
+		$this->set('studentAlotments', $this->paginate());
+	}
+
+/**
+ * view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function view($id = null) {
+		if (!$this->StudentAlotment->exists($id)) {
+			throw new NotFoundException(__('Invalid student alotment'));
+		}
+		$options = array('conditions' => array('StudentAlotment.' . $this->StudentAlotment->primaryKey => $id));
+		$this->set('studentAlotment', $this->StudentAlotment->find('first', $options));
+	}
+
+/**
+ * add method
+ *
+ * @return void
+ */
+	public function add() {
+		if ($this->request->is('post')) {
+			$this->StudentAlotment->create();
+			if ($this->StudentAlotment->save($this->request->data)) {
+				$this->Session->setFlash(__('The student alotment has been saved'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The student alotment could not be saved. Please, try again.'));
+			}
+		}
+		$studentRegistrations = $this->StudentAlotment->StudentRegistration->find('list');
+		$collegeGroupSubjects = $this->StudentAlotment->CollegeGroupSubject->find('list');
+		$this->set(compact('studentRegistrations', 'collegeGroupSubjects'));
+	}
+
+/**
+ * edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function edit($id = null) {
+		if (!$this->StudentAlotment->exists($id)) {
+			throw new NotFoundException(__('Invalid student alotment'));
+		}
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if ($this->StudentAlotment->save($this->request->data)) {
+				$this->Session->setFlash(__('The student alotment has been saved'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The student alotment could not be saved. Please, try again.'));
+			}
+		} else {
+			$options = array('conditions' => array('StudentAlotment.' . $this->StudentAlotment->primaryKey => $id));
+			$this->request->data = $this->StudentAlotment->find('first', $options);
+		}
+		$studentRegistrations = $this->StudentAlotment->StudentRegistration->find('list');
+		$collegeGroupSubjects = $this->StudentAlotment->CollegeGroupSubject->find('list');
+		$this->set(compact('studentRegistrations', 'collegeGroupSubjects'));
+	}
+
+/**
+ * delete method
+ *
+ * @throws NotFoundException
+ * @throws MethodNotAllowedException
+ * @param string $id
+ * @return void
+ */
+	public function delete($id = null) {
+		$this->StudentAlotment->id = $id;
+		if (!$this->StudentAlotment->exists()) {
+			throw new NotFoundException(__('Invalid student alotment'));
+		}
+		$this->request->onlyAllow('post', 'delete');
+		if ($this->StudentAlotment->delete()) {
+			$this->Session->setFlash(__('Student alotment deleted'));
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->Session->setFlash(__('Student alotment was not deleted'));
+		$this->redirect(array('action' => 'index'));
+	}
+	public function nominatedstudent(){
+		$this->StudentAlotment->recursive = 2;
+		if(!empty($this->request->data['searchtext'])){
+		$studentsdetails = $this->SstudentAlotment->StudentRegistration->find('all',array('conditions'=>array('StudentRegistration.applicant_name like %'.$this->request->data['searchtext'].'%')));
+		
+		$this->set('studentAlotments', $this->paginate());
+		}
+	}
+	
+
+}

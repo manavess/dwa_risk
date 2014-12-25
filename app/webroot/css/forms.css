@@ -1,0 +1,109 @@
+/*
+Template Name: Educational
+File: Forms CSS
+Author: OS Templates
+Author URI: http://www.os-templates.com/
+Licence: <a href="http://www.os-templates.com/template-terms">Website Template Licence</a>
+*/
+
+form{margin:0; padding:0; border:none;}
+fieldset{margin:0; padding:0; border: #CCC solid 1px;width: 98%;}
+legend{ font-weight:bold; color:#CC5446; margin-left:5px;}
+
+#newsletter form, #newsletter fieldset,#newsletter legend{margin:0; padding:0;width: 100%; border:none;}
+#newsletter legend{display:none;}
+
+input, textarea, select{font-size:12px; font-family:Verdana, Arial, Helvetica, sans-serif;}
+
+/* ----------------------------------------------Forms in Content Area-------------------------------------*/
+
+#container {display: block; width:100%;}
+
+#container #applictionform input{width:170px; padding:2px; border:1px solid #CCCCCC; margin:5px 5px 0 0;}
+#container #applictionform input.date{width:100px; padding:2px; border:1px solid #CCCCCC; margin:5px 5px 0 0;}
+#container #applictionform textarea{width:94%; border:1px solid #CCCCCC; padding:2px; overflow:auto;}
+	
+#container p{margin:5px 0;}
+
+#container #applictionform #submit, #container #applictionform #reset{
+	margin:0;
+	padding:5px;
+	color:#666666;
+	background-color:#F7F7F7;
+	border:1px solid #CCCCCC;
+	cursor:pointer;
+	width:100px;
+	}
+	
+	#form-button
+	{
+		width:50%;
+		margin:0px auto;
+	}
+	
+	#form-button .submit
+	{
+		width:auto;
+		float:left;
+		clear:none;
+		margin:0px;
+	}
+	
+	#form-button .submit input{
+	margin:0;
+	padding:5px;
+	color:#666666;
+	background:#F7F7F7;
+	border:1px solid #CCCCCC;
+	cursor:pointer;
+	width:100px;
+	text-shadow:none;
+	border-radius:0px;
+	box-shadow:none;
+	font-size:12px;
+	}
+	
+	#form-button a{
+		color:#746550;
+		font-size:12px;
+		text-align:center;
+		font-weight:normal;
+		margin-left:88px;
+	}
+
+/* ----------------------------------------------Newsletter-------------------------------------*/
+#container #applictionform input.rediobutton{ width:20px;}
+#footer form{
+	display:block;
+	width:300px;
+	margin:0;
+	padding:10px 0;
+	border:none;
+	}
+
+#footer input[type='text']{
+	display:block;
+	float:left;
+	width:245px;
+	margin:0 5px 0 0;
+	padding:5px;
+	color:#666666;
+	background:#FFFFFF;
+	border:1px solid #DBDBDB;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	border-radius:0;
+	}
+
+#footer input#news_go{
+	background:#FFFFFF;
+	border:1px solid #DBDBDB;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	width:auto;
+	height:auto;
+	margin:0;
+	padding:4px;
+	border-radius:0;
+}
+	label{ font-weight:bold; }

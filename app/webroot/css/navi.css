@@ -1,0 +1,623 @@
+#topnav-bg
+{
+	width:100%;
+	float:left;
+	background:none repeat scroll 0 0 #E5E2C9;
+}
+
+#topnav
+{
+	width:100%;
+	margin:0px auto;
+}
+
+#sa-cssmenu {
+
+	margin: 0px 0px 0px 125px; /* all lists */
+        float: left;
+/*        width:990px;*/
+        width:1062px;
+	padding:0px 0px 0px 0px;
+}
+
+
+
+#sa-cssmenu ul {
+
+	margin: 0; /* all lists */
+
+	padding: 0;
+
+}
+
+
+
+#sa-cssmenu li {
+
+	margin: 0; /* all list items */
+
+	padding: 0;
+
+	float: left;
+
+	display: block;
+
+	text-align:left;
+	
+	background: none;	
+
+	cursor: pointer;
+
+
+}
+
+
+
+#sa-cssmenu li ul {
+
+	width: 16.4em;
+
+	position: absolute; /* second-level lists */
+
+	z-index: 99;
+
+	left: -999em; /* using left instead of display to hide menus because display: none isn't read by screen readers */
+
+	height: auto;
+
+	w\idth: 15.9em;
+
+}
+
+
+
+#sa-cssmenu li ul ul {
+
+	margin: -2.1em 0 0 15.9em; /* third-and-above-level lists */
+
+}
+
+
+
+#sa-cssmenu li li {
+
+	padding: 0 1em 0 0;
+
+	margin: 0;
+
+	width: 14.9em;
+
+}
+
+
+
+#sa-cssmenu ul a {
+
+	width: 14.8em;
+
+	w\idth: 14.8em;
+
+}
+
+
+
+#sa-cssmenu li:hover ul ul, #sa-cssmenu li:hover ul ul ul,
+
+#sa-cssmenu li.sfhover ul ul, #sa-cssmenu li.havechildsfhover ul ul, #sa-cssmenu li.havechild-activesfhover ul ul, #sa-cssmenu li.activesfhover ul ul,
+
+#sa-cssmenu li.sfhover ul ul ul, #sa-cssmenu li.havechildsfhover ul ul ul, #sa-cssmenu li.havechild-activesfhover ul ul ul, #sa-cssmenu li.activesfhover ul ul ul {
+
+	left: -999em;
+
+}
+
+
+
+/* This "unhides" the sub-menus (left: -999em is what hides them) */
+
+#sa-cssmenu li:hover ul, #sa-cssmenu li li:hover ul, #sa-cssmenu li li li:hover ul,
+
+#sa-cssmenu li.sfhover ul, #sa-cssmenu li.havechildsfhover ul, #sa-cssmenu li.havechild-activesfhover ul, #sa-cssmenu li.activesfhover ul,
+
+#sa-cssmenu li li.sfhover ul, #sa-cssmenu li li.havesubchildsfhover ul, #sa-cssmenu li li.havesubchild-activesfhover ul, #sa-cssmenu li li.activesfhover ul,
+
+#sa-cssmenu li li li.sfhover ul, #sa-cssmenu li li li.havesubchildsfhover ul, #sa-cssmenu li li li.havesubchild-activesfhover ul, #sa-cssmenu li li li.activesfhover ul {
+
+	left: auto;
+
+}
+
+
+
+/* STYLING THE MENU
+
+-----------------------------------*/
+
+/* 1st level */
+
+#sa-cssmenu li a {
+
+	display: block;
+
+	text-decoration: none;
+
+	line-height: 35px;	
+
+	padding:0px 10px 0px 10px;
+	color:#666666;
+	font-size:13px;
+	text-transform:capitalize;
+        font-weight: normal;
+
+}
+
+
+
+#sa-cssmenu li a:hover,
+
+#sa-cssmenu li a:active,
+
+#sa-cssmenu li a:focus {
+
+	color:#ffffff;
+	background:#591434;
+
+}
+
+
+
+#sa-cssmenu li:hover,
+
+#sa-cssmenu li.sfhover,
+
+#sa-cssmenu li.havechildsfhover,
+
+#sa-cssmenu li.havechild-activesfhover {
+	color:#ffffff;
+	background:#591434;
+
+
+}
+
+
+
+#sa-cssmenu li a.active,
+
+#sa-cssmenu li a.active:hover,
+
+#sa-cssmenu li a.active:active,
+
+#sa-cssmenu li a.active:focus {
+
+	color:#ffffff;
+	background:#591434;
+
+}
+
+
+
+/* 2nd level and above */
+
+#sa-cssmenu li ul {
+
+
+background:#591434;
+}
+
+
+
+#sa-cssmenu li ul li {
+
+
+	border-right: none;
+
+	background: none;
+
+}
+
+
+
+#sa-cssmenu li ul a {
+
+	border-right: none;
+
+	margin: 0;
+
+	padding: 6px 10px;
+
+	line-height: normal;
+	font-family:Arial, Helvetica, sans-serif;
+
+	background: none;
+
+	color: #fff;
+
+	font-weight: normal;
+
+	font-size: 92%;
+
+}
+
+
+
+#sa-cssmenu li.havesubchild,
+
+#sa-cssmenu li.havesubchild-active {
+
+	background: url(../images/arrow3.png) no-repeat 94% 50%;
+
+}
+
+
+
+#sa-cssmenu li ul a:hover,
+
+#sa-cssmenu li ul a:active,
+
+#sa-cssmenu li ul a:focus,
+
+#sa-cssmenu ul li:hover,
+
+#sa-cssmenu ul li.sfhover,
+
+#sa-cssmenu ul li.havesubchildsfhover,
+
+#sa-cssmenu ul li.havesubchild-activesfhover,
+
+#sa-cssmenu ul ul li:hover,
+
+#sa-cssmenu ul ul li.sfhover,
+
+#sa-cssmenu ul ul li.havesubchildsfhover,
+
+#sa-cssmenu ul ul li.havesubchild-activesfhover {
+
+	background: #793856;
+
+	color: #fff; 
+
+}
+
+
+
+#sa-cssmenu ul li a.active,
+
+#sa-cssmenu ul li a.active:hover,
+
+#sa-cssmenu ul li a.active:active,
+
+#sa-cssmenu ul li a.active:focus {
+
+	background: none !important;
+
+	color: #fff;
+
+	font-weight: normal;
+
+}
+
+
+
+
+
+
+
+/* Menu for Admin Pannel */
+
+#topnav-bg
+{
+	width:100%;
+	float:left;
+	background:none repeat scroll 0 0 #E5E2C9;
+}
+
+#topnav
+{
+	width:100%;
+	margin:0px auto;
+}
+
+#sa-cssmenu1 {
+
+	margin: 0px 0px 0px 125px; /* all lists */
+        float: left;
+/*        width:990px;*/
+        width:1062px;
+	padding:0px 0px 0px 0px;
+}
+
+
+
+#sa-cssmenu1 ul {
+
+	margin: 0; /* all lists */
+
+	padding: 0;
+
+}
+
+
+
+#sa-cssmenu1 li {
+
+	margin: 0; /* all list items */
+
+	padding: 0;
+
+	float: left;
+
+	display: block;
+
+	text-align:left;
+	
+	background: none;	
+
+	cursor: pointer;
+
+
+}
+
+
+
+#sa-cssmenu1 li ul {
+
+	/*width: 16.4em;*/
+
+	position: absolute; /* second-level lists */
+
+	z-index: 99;
+
+	left: -999em; /* using left instead of display to hide menus because display: none isn't read by screen readers */
+
+	height: auto;
+
+	width: 15em;
+
+}
+
+
+
+#sa-cssmenu1 li ul ul {
+
+	margin: -2.1em 0 0 15.9em; /* third-and-above-level lists */
+
+}
+
+
+
+#sa-cssmenu1 li li {
+
+	padding: 0 0em 0 0;
+
+	margin: 0;
+width:94%;
+}
+
+
+
+#sa-cssmenu1 ul a {
+
+	width:100%;
+
+
+}
+
+
+
+#sa-cssmenu1 li:hover ul ul, #sa-cssmenu1 li:hover ul ul ul,
+
+#sa-cssmenu1 li.sfhover ul ul, #sa-cssmenu1 li.havechildsfhover ul ul, #sa-cssmenu1 li.havechild-activesfhover ul ul, #sa-cssmenu1 li.activesfhover ul ul,
+
+#sa-cssmenu1 li.sfhover ul ul ul, #sa-cssmenu1 li.havechildsfhover ul ul ul, #sa-cssmenu1 li.havechild-activesfhover ul ul ul, #sa-cssmenu1 li.activesfhover ul ul ul {
+
+	left: -999em;
+
+}
+
+
+
+/* This "unhides" the sub-menus (left: -999em is what hides them) */
+
+#sa-cssmenu1 li:hover ul, #sa-cssmenu1 li li:hover ul, #sa-cssmenu1 li li li:hover ul,
+
+#sa-cssmenu1 li.sfhover ul, #sa-cssmenu1 li.havechildsfhover ul, #sa-cssmenu1 li.havechild-activesfhover ul, #sa-cssmenu1 li.activesfhover ul,
+
+#sa-cssmenu1 li li.sfhover ul, #sa-cssmenu1 li li.havesubchildsfhover ul, #sa-cssmenu1 li li.havesubchild-activesfhover ul, #sa-cssmenu1 li li.activesfhover ul,
+
+#sa-cssmenu1 li li li.sfhover ul, #sa-cssmenu1 li li li.havesubchildsfhover ul, #sa-cssmenu1 li li li.havesubchild-activesfhover ul, #sa-cssmenu1 li li li.activesfhover ul {
+
+	left: auto;
+
+}
+
+
+
+/* STYLING THE MENU
+
+-----------------------------------*/
+
+/* 1st level */
+
+#sa-cssmenu1 li a {
+
+	display: block;
+
+	text-decoration: none;
+
+	line-height: 35px;	
+
+	padding:0px 2px 0px 7.3px;
+	color:#666666;
+	font-size:13px;
+	text-transform:capitalize;
+        font-weight: normal;
+
+}
+
+
+
+#sa-cssmenu1 li a:hover,
+
+#sa-cssmenu1 li a:active,
+
+#sa-cssmenu1 li a:focus {
+
+	color:#ffffff;
+	background:#591434;
+
+}
+
+
+
+#sa-cssmenu1 li:hover,
+
+#sa-cssmenu1 li.sfhover,
+
+#sa-cssmenu1 li.havechildsfhover,
+
+#sa-cssmenu1 li.havechild-activesfhover {
+	color:#ffffff;
+	background:#591434;
+
+
+}
+
+
+
+#sa-cssmenu1 li a.active,
+
+#sa-cssmenu1 li a.active:hover,
+
+#sa-cssmenu1 li a.active:active,
+
+#sa-cssmenu1 li a.active:focus {
+
+	color:#ffffff;
+	background:#591434;
+
+}
+
+
+
+/* 2nd level and above */
+
+#sa-cssmenu1 li ul {
+
+
+background:#591434;
+}
+
+#sa-cssmenu1 li a:last-child ul {
+
+width: 9em!important;
+background:#591434;
+}
+
+
+
+#sa-cssmenu1 li ul li {
+
+
+	border-right: none;
+
+	background: none;
+
+}
+
+
+ul#sa-cssmenu1 li:last-child ul
+{
+    width: 9em;
+}
+
+ul#sa-cssmenu1 li:last-child ul li
+{
+    width: 92%!important;
+}
+
+
+ul#sa-cssmenu1 li:last-child ul li:hover
+{
+     width: 89.5%!important;
+}
+
+
+
+#sa-cssmenu1 li ul a {
+
+	border-right: none;
+
+	margin: 0;
+
+	padding: 6px 6px;
+
+	line-height: normal;
+	font-family:Arial, Helvetica, sans-serif;
+
+	background: none;
+
+	color: #fff;
+
+	font-weight: normal;
+
+	font-size: 92%;
+
+}
+
+
+
+#sa-cssmenu1 li.havesubchild,
+
+#sa-cssmenu1 li.havesubchild-active {
+
+	background: url(../images/arrow3.png) no-repeat 94% 50%;
+
+}
+
+
+
+#sa-cssmenu1 li ul a:hover,
+
+#sa-cssmenu1 li ul a:active,
+
+#sa-cssmenu1 li ul a:focus,
+
+#sa-cssmenu1 ul li:hover,
+
+#sa-cssmenu1 ul li.sfhover,
+
+#sa-cssmenu1 ul li.havesubchildsfhover,
+
+#sa-cssmenu1 ul li.havesubchild-activesfhover,
+
+#sa-cssmenu1 ul ul li:hover,
+
+#sa-cssmenu1 ul ul li.sfhover,
+
+#sa-cssmenu1 ul ul li.havesubchildsfhover,
+
+#sa-cssmenu1 ul ul li.havesubchild-activesfhover {
+
+	background: #793856;
+
+	color: #fff; 
+
+}
+
+
+
+#sa-cssmenu1 ul li a.active,
+
+#sa-cssmenu1 ul li a.active:hover,
+
+#sa-cssmenu1 ul li a.active:active,
+
+#sa-cssmenu1 ul li a.active:focus {
+
+	background: none !important;
+
+	color: #fff;
+
+	font-weight: normal;
+
+}
