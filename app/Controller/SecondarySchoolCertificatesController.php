@@ -192,10 +192,10 @@ class SecondarySchoolCertificatesController extends AppController {
                                 $row_data['certificate_number'] = $data->sheets[0]['cells'][$i][1];
                                 $row_data['certificate_type'] = $data->sheets[0]['cells'][$i][2];
                                 $row_data['date_of_birth'] = isset($data->sheets[0]['cells'][$i][3]) ? $data->sheets[0]['cells'][$i][3] : 0;
-                                $row_data['date_of_birth'] = date('Y-m-d', strtotime($row_data['date_of_birth']) - (3600 * 24));
+                                $row_data['date_of_birth'] = date('Y-m-d', strtotime($row_data['date_of_birth']));
 
                                 $row_data['certificate_date'] = isset($data->sheets[0]['cells'][$i][4]) ? $data->sheets[0]['cells'][$i][4] : 0;
-                                $row_data['certificate_date'] = date('Y-m-d', strtotime($row_data['certificate_date']) - (3600 * 24));
+                                $row_data['certificate_date'] = date('Y-m-d', strtotime($row_data['certificate_date']));
 
                                 $row_data['year'] = isset($data->sheets[0]['cells'][$i][5]) ? $data->sheets[0]['cells'][$i][5] : 0;
                                 $row_data['created'] = date('Y-m-d');
