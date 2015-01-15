@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 App::import('Vendor', 'Excel/reader');
 App::import('Sanitize');
 set_time_limit(240);    //4minutes
-ini_set('memory_limit', '64M');
+ini_set('memory_limit', -1);
 
 /**
  * SecondarySchoolCertificates Controller
@@ -476,7 +476,7 @@ class SecondarySchoolCertificatesController extends AppController {
                                     }
                                 }
                             } else {
-                                $messag .= '</br>Some Invalid Certificate date or Date of birth or Year appear in the excel sheet that could not be imported.';
+                                $messag .= '</br>For certificate number ' . $data->sheets[0]['cells'][$i][1] . ' Some Invalid Certificate date or Date of birth or Year appear in the excel sheet that could not be imported.';
                             }
                         } else {
                             $ifmatched[] = $data->sheets[0]['cells'][$i][1];
