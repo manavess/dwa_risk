@@ -130,6 +130,13 @@ class StudentRegistrationsController extends AppController {
                 $conditions[] = "year(`StudentRegistration`.`created`)='" . $this->passedArgs['year'] . "'";
             }
 
+            @$this->passedArgs['application_number'] = isset($this->request->data['StudentRegistration']['application_number']) ? $this->request->data['StudentRegistration']['application_number'] : $this->passedArgs['application_number'];
+            if (!empty($this->passedArgs['application_number'])) {
+                $conditions[] = "StudentRegistration.application_number ='" . $this->passedArgs['application_number'] . "'";
+            }
+
+
+
             if (!empty($conditions)) {
 
                 $totalregid = $this->StudentRegistration->StudentPreferedColleges->find('all', array('fields' => array('student_registration_id'), 'conditions' => $conditions));
@@ -1743,14 +1750,15 @@ class StudentRegistrationsController extends AppController {
 
         $this->loadModel('Gradepoint');
         $this->loadModel('AdminPreference');
-        $markslimit = 0;
-        $markslimit = $this->AdminPreference->find('all', array('fields' => array('markslimit'), 'conditions' => array('year' => date('Y'))));
-        if (!empty($markslimit)) {
-            $markslimit = $markslimit[0]['AdminPreference']['markslimit'];
+        $markslimit = array('');
+        $markslimits = $this->AdminPreference->find('all', array('fields' => array('markslimit'), 'conditions' => array('year' => date('Y'))));
+        //pr($markslimits);
+        if (!empty($markslimits)) {
+            $markslimit = $markslimits[0]['AdminPreference']['markslimit'];
         }
-
+        //pr($markslimit);die;
         $markssystem = $this->request->data['markssystem']; /* to track grade or marks percentage has been selected */
-
+        //pr($markssystem);die;
         $gradetype = '';
         // if (!empty($this->request->data['gradesystem'])) {
         //$gradetype = $this->request->data['gradesystem'];
@@ -1776,7 +1784,6 @@ class StudentRegistrationsController extends AppController {
             if ($markssystem == 'G') {
 
                 $i = 0;
-
 
                 foreach ($compulsarySub_marks as $gradepoints) {
 
@@ -2728,4 +2735,161 @@ class StudentRegistrationsController extends AppController {
         }
     }
 
+    public function download_non_nominated_student(){
+        $this->layout='nominatedstudents';
+        $this->StudentRegistration->recursive = 0;
+
+        $this->loadModel('College');
+        $this->loadModel('University');
+
+        $this->set('universities', $this->University->find('list', array('order' => 'University.name ASC')));
+        $this->set('colleges', $this->College->find('list'));
+        $conditions = array();
+        $collegeGroupsubjectID = array();
+        $grpsubid = array();
+        $grpsubimplodedid = '';
+        $totalregid = array();
+        $whereRegID = '';
+        $data = array();
+
+        /* check for edit and delete after alotment */
+        $isallocatted = array();
+        $this->loadModel("StudentAlotmentDetail");
+        $isallocatted = $this->StudentAlotmentDetail->find('first', array('conditions' => array('YEAR(StudentAlotmentDetail.created)' => date('Y'))));
+
+        if (!empty($isallocatted)) {
+
+            $this->set('isalloted', 'Y');
+        }
+        /**/
+        //pr($this->request->data);die;
+        if (!empty($this->request->data) || !empty($this->passedArgs['college_id']) || !empty($this->passedArgs['university_id']) || !empty($this->passedArgs['year'])) {
+
+            if (isset($this->request->data['Reset'])) {
+                $this->redirect("/StudentRegistrations/index");
+            }
+
+            $this->loadModel('CollegeGroupSubject');
+
+            if (!empty($this->request->data['StudentRegistration']['college_id']) || !empty($this->passedArgs['college_id'])) {
+
+                @$this->passedArgs['college_id'] = isset($this->request->data['StudentRegistration']['college_id']) ? $this->request->data['StudentRegistration']['college_id'] : $this->passedArgs['college_id'];
+                $collegeGroupsubjectID = $this->CollegeGroupSubject->find('all', array('conditions' => array("CollegeGroupSubject.college_id ='" . $this->passedArgs['college_id'] . "'")));
+
+                foreach ($collegeGroupsubjectID as $colleg_group_subjecID) {
+                    $grpsubid[] = $colleg_group_subjecID['CollegeGroupSubject']['id'];
+                }
+
+                if (!empty($grpsubid)) {
+                    $grpsubimplodedid = implode(',', $grpsubid);
+                    $conditions[] = "StudentPreferedColleges.college_group_subject_id IN (" . $grpsubimplodedid . ")";
+                } else {
+                    $conditions[] = '';
+                }
+            }
+
+
+            @$this->passedArgs['university_id'] = isset($this->request->data['StudentRegistration']['university_id']) ? $this->request->data['StudentRegistration']['university_id'] : $this->passedArgs['university_id'];
+            if (!empty($this->passedArgs['university_id']) || !empty($this->request->data['StudentRegistration']['university_id'])) {
+
+
+                $Collegelistid = $this->College->find('all', array('fields' => array('id', 'university_id'), 'conditions' => array('College.university_id' => $this->passedArgs['university_id'])));
+                $collegeidlist = array();
+                $collegelist = '';
+                if (!empty($Collegelistid)) {
+                    foreach ($Collegelistid as $collegeID) {
+                        $collegeidlist[] = $collegeID['College']['id'];
+                    }
+                    $collegelist = implode(',', $collegeidlist);
+                }
+
+                $collegegrpidlist = array();
+                $collegegrplist = '';
+
+                if (!empty($collegelist)) {
+
+                    $collegegroupsubjectIDs = $this->CollegeGroupSubject->find('all', array('conditions' => array('CollegeGroupSubject.college_id IN (' . $collegelist . ')')));
+
+                    $collegegrpidlist = array();
+                    $collegegrplist = '';
+                    if (!empty($collegegroupsubjectIDs)) {
+                        foreach ($collegegroupsubjectIDs as $collegegrpID) {
+                            $collegegrpidlist[] = $collegegrpID['CollegeGroupSubject']['id'];
+                        }
+
+                        $collegegrplist = implode(',', $collegegrpidlist);
+                    }
+                }
+                if (!empty($collegegrplist)) {
+                    $collegegrplist = $collegegrplist;
+                } else {
+                    $collegegrplist = 'null';
+                }
+
+                $conditions[] = "StudentPreferedColleges.college_group_subject_id IN (" . $collegegrplist . ")";
+            }
+
+            // echo $this->request->data['StudentRegistration']['year'];
+            if (!empty($this->request->data['StudentRegistration']['year']) || !empty($this->passedArgs['year'])) {
+                $this->passedArgs['year'] = isset($this->request->data['StudentRegistration']['year']) ? $this->request->data['StudentRegistration']['year'] : $this->passedArgs['year'];
+                $conditions[] = "year(`StudentRegistration`.`created`)='" . $this->passedArgs['year'] . "'";
+            }
+            
+            @$this->passedArgs['application_number'] = isset($this->request->data['StudentRegistration']['application_number']) ? $this->request->data['StudentRegistration']['application_number'] : $this->passedArgs['application_number'];
+            if (!empty($this->passedArgs['application_number'])) {
+                $conditions[] = "StudentRegistration.application_number ='" . $this->passedArgs['application_number'] . "'";
+            }
+            
+            
+
+            if (!empty($conditions)) {
+
+                $totalregid = $this->StudentRegistration->StudentPreferedColleges->find('all', array('fields' => array('student_registration_id'), 'conditions' => $conditions));
+
+                $totalregids = array();
+                $data = array();
+                if (!empty($totalregid)) {
+                    foreach ($totalregid as $total) {
+                        $totalregids[] = $total['StudentPreferedColleges']['student_registration_id'];
+                    }
+
+                    if (!empty($totalregids)) {
+                        $totalregids = implode(',', $totalregids);
+                        $whereRegID = "StudentRegistration.id IN (" . $totalregids . ")";
+
+                        $data = $this->paginate('StudentRegistration', array($whereRegID));
+                        //$data = $this->StudentRegistration->find('all',array('conditions'=>$whereRegID));
+                        $this->set('studentRegistrations', $data);
+                    }
+                } else {
+                    $this->set('studentRegistrations', $data);
+                }
+            } else {
+                $this->set('studentRegistrations', $this->paginate());
+            }
+            if (!empty($this->passedArgs['college_id'])) {
+                $this->passedArgs['college_id'] = $this->passedArgs['college_id'];
+            } else {
+                $this->passedArgs['college_id'] = '';
+            }
+
+            if (!empty($this->passedArgs['year'])) {
+                $selectedyear = $this->set('selectedyear', $this->passedArgs['year']);
+            } else {
+                $selectedyear = '';
+            }
+
+            $selecteduniver = '';
+            $this->set('collegeid', $this->passedArgs['college_id']);
+            $this->set('universityID', $this->passedArgs['university_id']);
+            if (!empty($this->passedArgs['university_id'])) {
+                $this->set('colleges', $this->College->find('list', array('conditions' => array('College.university_id' => $this->passedArgs['university_id']))));
+            } else {
+                $this->set('colleges', $this->College->find('list'));
+            }
+        } else {
+            //pr($studentRegistrations);die;
+            $this->set('studentRegistrations', $this->StudentRegistration->find('all'));
+        }
+    }
 }
