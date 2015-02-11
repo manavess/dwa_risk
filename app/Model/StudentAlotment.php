@@ -27,7 +27,7 @@ class StudentAlotment extends AppModel {
 			'foreignKey' => 'college_group_subject_id'
 			
 		),
-            'Colleges' => array(
+                'Colleges' => array(
 			'className' => 'Colleges',
 			'foreignKey' => 'college_id'
 			

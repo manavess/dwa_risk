@@ -205,12 +205,12 @@ class UsersController extends AppController {
                             $this->Email->smtpOptions = array(
                                 'port' => '25',
                                 'timeout' => '30',
-                                'host' => 'mail.essindia.co.in',
-                                'username' => 'prakash.joshi@essindia.co.in',
-                                'password' => 'prakash.joshi'
+                                'host' => 'smtp.essindia.com',
+                                'username' => 'manav.pandey@essindia.com',
+                                'password' => 'Manav.pandey24'
                             );
                             $this->Email->template = 'resetpw';
-                            $this->Email->from = 'prakash.joshi@essindia.co.in';
+                            $this->Email->from = 'manav.pandey@essindia.com';
                             $this->Email->to = $fu['User']['username'] . '<' . $fu['User']['email'] . '>';
                             $this->Email->subject = 'Reset Your Password';
                             $this->Email->sendAs = 'both';

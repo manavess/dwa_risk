@@ -2140,8 +2140,8 @@ class StudentRegistrationsController extends AppController {
         }
 
         $this->loadModel("StudentAlotmentDetail");
-        $isallocatted = $this->StudentAlotmentDetail->find('first', array('conditions' => array('YEAR(StudentAlotmentDetail.year)' => $admyear)));
-
+        $isallocatted = $this->StudentAlotmentDetail->find('first', array('conditions' => array('StudentAlotmentDetail.year' => $admyear)));
+        
         $this->loadModel("AdminPreference");
         $lastdate = $this->AdminPreference->find('first', array('fields' => array('AdminPreference.cut_off_date'), 'conditions' => array('AdminPreference.year' => '2014')));
 
@@ -2334,7 +2334,7 @@ class StudentRegistrationsController extends AppController {
             }
         }
     }
-
+        
     private function getstudentsortedlist($studentregistrationlist) {
 
         $sortedlist = array();
@@ -2892,4 +2892,5 @@ class StudentRegistrationsController extends AppController {
             $this->set('studentRegistrations', $this->StudentRegistration->find('all'));
         }
     }
+        
 }

@@ -1,5 +1,4 @@
 <?php
-
 App::import('Vendor','tcpdf/tcpdf'); 
 
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);  
@@ -37,7 +36,7 @@ $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);  
 
 // set font 
-$pdf->SetFontSize(6);
+$pdf->SetFontSize(7);
 
 // add a page 
 $pdf->AddPage(); 
@@ -75,7 +74,7 @@ if(!empty($nominate)){
                 <th ><b>University</b></th>";
         }
        
-       
+    $html .= "<th><b>Total Percentage</b></th>";   
     $html .= "  <th ><b>Rank</b></th>
                 </tr>";
 	
@@ -94,6 +93,7 @@ if(!empty($nominate)){
                 $html .= "<td >".@$studentAlotment['Colleges']['name']."</td>";
                 $html .= "<td >".@$this->StdRegistrations->getuniversity($studentAlotment['Colleges']['university_id'])."</td>";
                }
+                $html .= "<td >".@$studentAlotment['StudentRegistration']['total_percentage']."</td>";
                 $html .= "<td >".@$studentAlotment['StudentAlotment']['grade']."</td></tr>";
              } $i++;   endforeach;
     $html .= "  </table>";

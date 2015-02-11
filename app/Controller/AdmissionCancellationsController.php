@@ -122,10 +122,12 @@ class AdmissionCancellationsController extends AppController {
             $this->loadModel('StudentPreferedColleges');
             $this->loadModel('CollegeGroupSubject');
             $this->loadModel('StudentAlotment');
+            $this->loadModel('Course');
 
             $admissionDetails = array();
             $collegegroupsubject_id = array();
             $collegeUniversity = array();
+                      
 
             $admissionDetails = $this->AdmissionCancellation->StudentRegistration->find('first', array('conditions' => array('StudentRegistration.application_number' => $this->request->data['application_number'])));
             $checkforalotment = array();
@@ -141,7 +143,7 @@ class AdmissionCancellationsController extends AppController {
                 }
             }
             $data = '';
-            if (!empty($checkforalotment)) {
+            if (!empty($checkforalotment)) {//pr($admissionDetails);die;
                 $collegegroupsubject_id = $this->StudentPreferedColleges->find('first', array('fields' => array('college_group_subject_id'), 'conditions' => array('StudentPreferedColleges.student_registration_id' => $admissionDetails['StudentRegistration']['id'])));
 
                 $this->CollegeGroupSubject->recursive = 2;
@@ -165,14 +167,17 @@ class AdmissionCancellationsController extends AppController {
                 $dateofapplication = '';
                 $dateofapplication = date('d-m-Y', strtotime($admissionDetails['StudentRegistration']['created']));
 
+                $getcourseid = $this->Course->find('first',array('fields'=>array('name'),'conditions'=> array('Course.id' => $admissionDetails['StudentAlotment'][0]['course_id'])));
+                
                 $courseName = '';
-                $courseName = $admissionDetails['Course']['name'];
-
+                $courseName = $getcourseid['Course']['name'];
+                
                 //$contactNum = $admissionDetails['StudentRegistration']['id'];
                 $data = '{"app_number":"' . $app_number . '","applicant_name":"' . $applicant_name . '","university_name":"' . $university_name . '","college_name":"' . $college_name . '","student_registration_id":"' . $student_registration_id . '","dateofapplication":"' . $dateofapplication . '","courseName":"' . $courseName . '"}';
             } else {
                 $data = false;
             }
+            //pr($data);die;
 
             echo $data;
             exit;

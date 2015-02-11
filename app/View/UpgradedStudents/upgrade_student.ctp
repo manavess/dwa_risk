@@ -20,7 +20,13 @@
                 echo $this->Form->input('from_course_id', array('type' => 'hidden', 'id' => 'from_course_id'));
                 
                 echo $this->Form->input('from_course', array('label' => 'Current Course', 'type' => 'text', 'id' => 'course_id', 'readonly'));
-                if(!empty($this->data['UpgradedStudent']['to_course_id'])){ $tocourse = $this->data['UpgradedStudent']['to_course_id'];}else{ $tocourse = ''; }
+                if(!empty($this->data['UpgradedStudent']['to_course_id'])){ 
+                    $tocourse = $this->data['UpgradedStudent']['to_course_id'];
+                    
+                }else{ 
+                    $tocourse = ''; 
+                    
+                }
                 echo $this->Form->input('to_course_id', array('id' => 'studentcourse', 'empty' => 'Select', 'label' => 'Upgrade To Course', 'options' => $coursedata,'selected'=>'Select'));
                 ?>
             </div>

@@ -59,7 +59,7 @@
             currentpass = true;
         }
 
-        if ($("#newpass").val() == '') {
+        if (($("#newpass").val()).trim() == '') {
             //alert("Please enter your new password");
             $("#newpasserror").html("Please enter your new password");
             $("#newpasserror").css('display', '');
@@ -68,7 +68,7 @@
             newpass_status = true;
         }
 
-        if ($("#confirmpass").val() == '') {
+        if (($("#confirmpass").val()).trim() == '') {
             //alert("Please enter your new password again to confirm");
             $("#cnfpasserror").html("Please enter your new password again to confirm");
             $("#cnfpasserror").css('display', '');

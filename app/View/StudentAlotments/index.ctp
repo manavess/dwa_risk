@@ -46,7 +46,13 @@ $gender = array('M' => 'Male', 'F' => 'Female');?>
 	<?php echo $this->Form->input('gender',array('selected'=>$genderID,'options'=>array(''=>'Select',$gender)));?>
         </div>
         <div class="right-area">
-            <span>&nbsp;</span>
+	<?php if(!empty($courseID)){ $courseID = $courseID; } else { $courseID =''; } ?>
+	<?php echo $this->Form->input('course_id',array('style' => 'width:200px;','id' => 'alotmentcourse','options'=>array('' => ' Select ',$courses),'default'=>$courseID)); ?>
+
+
+        </div>
+
+        <div class="right-area">
             <div id="form-button">
 
 	<?php echo $this->Form->end(__('Search')); ?>
@@ -65,6 +71,7 @@ $gender = array('M' => 'Male', 'F' => 'Female');?>
             <th><?php echo $this->Paginator->sort('application_number'); ?></th>
             <th><?php echo $this->Paginator->sort('Alloted College'); ?></th>
             <th><?php echo "University"; ?></th>
+            <th><?php echo $this->Paginator->sort('total_percentage'); ?></th>
             <th><?php echo $this->Paginator->sort('Rank'); ?></th>
             <th><?php echo $this->Paginator->sort('allocation_year'); ?></th>
             <th>Allotted</th>
@@ -74,19 +81,27 @@ $gender = array('M' => 'Male', 'F' => 'Female');?>
         <tr>
             <td><?php echo $i ; ?>&nbsp;</td>
             <td>
-			<?php echo $this->Html->link($studentAlotment['StudentRegistration']['applicant_name'], array('controller' => 'student_registrations', 'action' => 'view', $studentAlotment['StudentRegistration']['id'])); ?>
+                <?php echo $this->Html->link($studentAlotment['StudentRegistration']['applicant_name'], array('controller' => 'student_registrations', 'action' => 'view', $studentAlotment['StudentRegistration']['id'])); ?>
             </td>
             <td>
-			<?php echo $this->Html->link($studentAlotment['StudentRegistration']['application_number'], array('controller' => 'student_registrations', 'action' => 'view', $studentAlotment['StudentRegistration']['id'])); ?>
+                <?php echo $this->Html->link($studentAlotment['StudentRegistration']['application_number'], array('controller' => 'student_registrations', 'action' => 'view', $studentAlotment['StudentRegistration']['id'])); ?>
             </td>
             <td>
       <?php if(!empty($studentAlotment['Colleges']['name'])){ 
           echo $studentAlotment['Colleges']['name']; 
-          
       } 
       ?>
             </td>
             <td><?php echo $this->StdRegistrations->getuniversity($studentAlotment['Colleges']['university_id']); ?>
+            </td>
+            <td><?php 
+            if($this->StdRegistrations->getpercentage($studentAlotment['StudentRegistration']['total_percentage'])){
+                echo $this->StdRegistrations->getpercentage($studentAlotment['StudentRegistration']['total_percentage']); 
+                
+            }else{ 
+                echo h($studentAlotment['StudentRegistration']['total_percentage']); 
+                } 
+            ?>&nbsp;
             </td>
 
             <td><?php if(!empty($studentAlotment['StudentAlotment']['grade'])){
@@ -154,7 +169,6 @@ $gender = array('M' => 'Male', 'F' => 'Female');?>
         });
         return true;
     });
-
 
 
     $('#universityID').change(function() {

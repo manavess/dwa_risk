@@ -262,6 +262,7 @@ class UpgradedStudentsController extends AppController {
         $this->UpgradedStudent->layout = 'Upgrade Student';
         $msg = '';
         $coursedata = $this->UpgradedStudent->fromCourse->find('list');
+        //pr($coursedata);die;
         $this->set('coursedata', $coursedata);
         $this->loadModel('Gradepoint');
         $grades = $this->Gradepoint->find('all');
@@ -456,6 +457,7 @@ class UpgradedStudentsController extends AppController {
     }
 
     public function getstudentdetails() {
+        $this->loadModel('Course');
         $this->UpgradedStudent->layout = null;
         $this->UpgradedStudent->StudentRegistration->recursive = 2;
         $studentdata = $this->UpgradedStudent->StudentRegistration->find('first', array('conditions' => array('StudentRegistration.application_number' => $this->request->data['applicationum'])));
@@ -464,8 +466,11 @@ class UpgradedStudentsController extends AppController {
         $this->loadModel('StudentAlotment');
         $isallotment = $this->StudentAlotment->find('first', array('conditions' => array('StudentAlotment.student_registration_id' => $studentregistrationID )));
         $data = '';
-        $coursename = $studentdata['Course']['name'];
-        $courseID = $studentdata['Course']['id'];
+        
+        $getcourseid = $this->Course->find('first',array('fields'=>array('id','name'),'conditions'=> array('Course.id' => $studentdata['StudentAlotment'][0]['course_id'])));
+        
+        $coursename = $getcourseid['Course']['name'];
+        $courseID = $getcourseid['Course']['id'];
         if (!empty($isallotment)) {
             $data = '{"studentName":"' . $applicantname . '","studentregID":"' . $studentregistrationID . '","coursename":"' . $coursename . '","coursenameid":"' . $courseID . '"}';
         } else {

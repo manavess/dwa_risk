@@ -59,7 +59,7 @@ class StudentStatementsController extends AppController {
                     }
                 }
 
-                $this->set('totalpercentage', $registrationid);
+                    $this->set('totalpercentage', $registrationid);
                 $this->StudentPreferedColleges->recursive = 3;
 
                 if (!empty($registrationid['StudentRegistration']['id'])) {
@@ -168,6 +168,7 @@ class StudentStatementsController extends AppController {
         $this->loadModel('StudentPreferedColleges');
         $this->loadModel('StudentRegistration');
         $this->loadModel('StudentAlotment');
+        $this->loadModel('Course');
 
         if (!empty($this->request->data['applicationNum'])) {
             $this->StudentRegistration->recursive = 0;
@@ -178,6 +179,14 @@ class StudentStatementsController extends AppController {
             }
 
             $this->set('totalpercentage', $registrationid);
+            //pr($registrationid);die;
+            
+            $getcourseid = $this->StudentAlotment->find('first', array('fields' => array('student_registration_id','course_id'),'conditions' => array('StudentAlotment.student_registration_id' => $registrationid['StudentRegistration']['id'])));
+            $this->set('getcourseid', $getcourseid);
+            
+            $studentcourse = $this->Course->find('first',array('fields' => array('name'),'conditions'=>array('Course.id'=>$getcourseid['StudentAlotment']['course_id'])));
+            $this->set('studentcourse',$studentcourse);
+            //pr($studentcourse);die;
 
             $this->StudentPreferedColleges->recursive = -1;
             if (!empty($registrationid['StudentRegistration']['id'])) {

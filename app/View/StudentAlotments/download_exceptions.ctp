@@ -36,7 +36,7 @@ $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);  
 
 // set font 
-$pdf->SetFontSize(6);
+$pdf->SetFontSize(7);
 
 // add a page 
 $pdf->AddPage(); 
@@ -110,16 +110,16 @@ $html .= "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"3\" border=\"1\"
             }
     $html .= "</table>";
     
-    $html .= "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"3\" border=\"1\">";
-    $html .= "<tr><td align=\"center\" width=\"42%\">
-                <b>Total:</b></td>
-                <td width=\"10%\">".$totalplanned."</td>
-                <td width=\"23%\"><table><tr><td>".$totalmale."</td><td>".$totalfemale."</td><td>".$totalnominated."</td></tr></table></td>
-                <td width=\"7%\"></td>
-                <td width=\"12%\"></td>
-                <td width=\"6%\">".$totalremarks."</td>
-                </tr>";
-    $html .= "</table>";
+//    $html .= "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"3\" border=\"1\">";
+//    $html .= "<tr><td align=\"center\" width=\"42%\">
+//                <b>Total:</b></td>
+//                <td width=\"10%\">".$totalplanned."</td>
+//                <td width=\"23%\"><table><tr><td>".$totalmale."</td><td>".$totalfemale."</td><td>".$totalnominated."</td></tr></table></td>
+//                <td width=\"7%\"></td>
+//                <td width=\"12%\"></td>
+//                <td width=\"6%\">".$totalremarks."</td>
+//                </tr>";
+//    $html .= "</table>";
              
 $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 

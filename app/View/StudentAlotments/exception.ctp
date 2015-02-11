@@ -2,8 +2,7 @@
 <?php  echo $this->Html->addCrumb("Student Alotment", '/StudentAlotments'); ?>
     <h2><?php echo __('Results'); ?></h2>
 
-
-        <?php echo $this->Form->create('StudentAlotment', array('url' => "exception")); ?>
+    <?php echo $this->Form->create('StudentAlotment', array('url' => "exception")); ?>
     <div class="form-area2">
 
         <div class="left-area" style="width:41%!important">
@@ -13,11 +12,7 @@
                     $universityID = '';
                 } ?>
 <?php echo $this->Form->input('university_id', array('id' => 'universityID', 'empty' => 'select', 'selected' => $universityID, 'options' => $universities)); ?>
-
         </div>
-
-
-
     </div>
     <div class="right-area">
         <div id="form-button">

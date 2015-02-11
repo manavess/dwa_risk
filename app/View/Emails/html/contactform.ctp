@@ -3,5 +3,5 @@
  
 <p>
 Thanks and Regards,<br/>
-Ministry of Sudan
+Ministry of South Sudan
 </p>

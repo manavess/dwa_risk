@@ -69,15 +69,15 @@ class ContactFormsController extends AppController {
                 $this->Email->smtpOptions = array(
                     'port' => '25',
                     'timeout' => '30',
-                    'host' => 'mail.essindia.co.in',
-                    'username' => 'prakash.joshi@essindia.co.in',
-                    'password' => 'prakash.joshi'
+                    'host' => 'smtp.essindia.com',
+                    'username' => 'manav.pandey@essindia.com',
+                    'password' => 'Manav.pandey24'
                 );
 
                 $this->Email->template = 'contactform';
-                $this->Email->from = 'prakash.joshi@essindia.co.in';
+                $this->Email->from = 'manav.pandey@essindia.com';
                 $this->Email->to = trim($this->request->data['ContactForm']['email']);
-                $this->Email->cc = 'prakash.joshi@essindia.co.in';
+                $this->Email->cc = 'manav.pandey@essindia.com';
                 $this->Email->subject = $this->request->data['ContactForm']['subject'];
                 $this->Email->sendAs = 'both';
 

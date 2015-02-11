@@ -36,7 +36,7 @@ $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);  
 
 // set font 
-$pdf->SetFontSize(6);
+$pdf->SetFontSize(7);
 
 // add a page 
 $pdf->AddPage(); 
