@@ -73,7 +73,7 @@ if(!empty($nominate)){
     $html .= "  <th ><b>Allotted College</b></th>
                 <th ><b>University</b></th>";
         }
-    $html .= "<th><b>Course</b></th>";
+    $html .= "<th><b>Ranking Basis</b></th>";
     $html .= "<th><b>Total Percentage</b></th>";   
     $html .= "  <th ><b>Rank</b></th>
                 </tr>";

@@ -29,7 +29,7 @@ if (!empty($colleges) || !empty($selectedCollegeData)) {
                  $collegegrpid = $college['CollegeGroupSubject']['college_id'].",".$college['CollegeGroupSubject']['id'];
                   
                 if ($isvalid)
-                    $option .= "<option value='{$collegegrpid}','rel'=''>{$this->StdRegistrations->getuniversity($college['College']['university_id'])}  {$college['College']['college_code']} {$college['College']['name']} </option>";
+                    $option .= "<option value='{$collegegrpid}','rel'=''>{$this->StdRegistrations->getuniversity($college['College']['university_id'])}  {$college['College']['college_code']}  {$college['College']['name']} </option>";
     
             }
         }
@@ -56,7 +56,7 @@ if (!empty($colleges) || !empty($selectedCollegeData)) {
                         $selectedgrpid = $selected['StudentPreferedColleges']['college_id'].",".'';
                     }
                     
-                    $option .= "<option selected='selected' value='{$selectedgrpid}','rel'=''>{$this->StdRegistrations->getuniversity($selected['CollegeGroupSubject']['College']['university_id'])}  {$selected['CollegeGroupSubject']['College']['college_code']} {$selected['CollegeGroupSubject']['College']['name']} </option>";
+                    $option .= "<option selected='selected' value='{$selectedgrpid}','rel'=''>{$this->StdRegistrations->getuniversity($selected['CollegeGroupSubject']['College']['university_id'])}  {$selected['CollegeGroupSubject']['College']['college_code']}  {$selected['CollegeGroupSubject']['College']['name']}</option>";
                 }
             }
         }
@@ -90,7 +90,7 @@ $option = '<table border="0" style="margin:auto;" cellpadding="0" cellspacing="0
                 }
                 $collegegrpid = $college['CollegeGroupSubject']['college_id'].",".$college['CollegeGroupSubject']['id'];
                 if ($isvalid)
-                    $option .= "<option value='{$collegegrpid}','rel'=''>{$college['College']['University']['name']}  {$college['College']['college_code']} {$college['College']['name']} </option>";
+                    $option .= "<option value='{$collegegrpid}','rel'=''>{$college['College']['University']['name']}  {$college['College']['college_code']}  {$college['College']['name']}</option>";
             }
         }
         
@@ -115,7 +115,7 @@ $option = '<table border="0" style="margin:auto;" cellpadding="0" cellspacing="0
                     }
                 
                 if (!empty($selected['StudentPreferedColleges']['college_id'])) {
-                    $option .= "<option selected='selected' value='{$selectedgrpid}','rel'=''>{$this->StdRegistrations->getuniversity($selected['CollegeGroupSubject']['College']['university_id'])}  {$selected['CollegeGroupSubject']['College']['college_code']} {$selected['CollegeGroupSubject']['College']['name']} </option>";
+                    $option .= "<option selected='selected' value='{$selectedgrpid}','rel'=''>{$this->StdRegistrations->getuniversity($selected['CollegeGroupSubject']['College']['university_id'])}  {$selected['CollegeGroupSubject']['College']['college_code']}  {$selected['CollegeGroupSubject']['College']['name']}</option>";
                 }
             }
         }
@@ -141,7 +141,7 @@ $option = '<select name="right-select[]" id="privateStudentcollege" style="width
                         //$subkey = array_search($privatecollegeoption['College']['id'], $group_subject);
                         $collegegrpid = $selected['StudentPreferedColleges']['college_id'].",".$selected['StudentPreferedColleges']['college_group_subject_id']; 
                         if ($selected['StudentPreferedColleges']['college_id'] == $privatecollegeoption['CollegeGroupSubject']['College']['id']) {
-                            $option .= "<option selected='selected' value='{$collegegrpid}'>{$this->StdRegistrations->getuniversity($privatecollegeoption['CollegeGroupSubject']['College']['university_id'])}  {$privatecollegeoption['CollegeGroupSubject']['College']['college_code']} {$privatecollegeoption['CollegeGroupSubject']['College']['name']} </option>";
+                            $option .= "<option selected='selected' value='{$collegegrpid}'>{$this->StdRegistrations->getuniversity($privatecollegeoption['CollegeGroupSubject']['College']['university_id'])}  {$privatecollegeoption['CollegeGroupSubject']['College']['college_code']}  {$privatecollegeoption['College']['name']}</option>";
                         }
                     }
                 
@@ -149,7 +149,7 @@ $option = '<select name="right-select[]" id="privateStudentcollege" style="width
                 if(!empty($group_subject) && array_search($privatecollegeoption['College']['id'], $group_subject)){
                     //$subkey = array_search($privatecollegeoption['College']['id'], $group_subject);
                     $collegegrpid = $privatecollegeoption['College']['id'].",".$privatecollegeoption['CollegeGroupSubject']['id']; 
-                    $option .= "<option value='{$collegegrpid}'>{$this->StdRegistrations->getuniversity($privatecollegeoption['College']['university_id'])}  {$privatecollegeoption['College']['college_code']} {$privatecollegeoption['College']['name']}  {$subkey}</option>";
+                    $option .= "<option value='{$collegegrpid}'>{$this->StdRegistrations->getuniversity($privatecollegeoption['College']['university_id'])}  {$privatecollegeoption['College']['college_code']}  {$privatecollegeoption['College']['name']} {$subkey}</option>";
                 }
                 $subkey='';
             }
@@ -172,13 +172,13 @@ $option = '<select name="right-select[]" id="privateStudentcollege" style="width
                         $collegegrpid = $selected['StudentPreferedColleges']['college_id'].",".$selected['StudentPreferedColleges']['college_group_subject_id']; 
                 
                         if ($selected['StudentPreferedColleges']['college_id'] == $privatecollegeoption['CollegeGroupSubject']['college_id']) {
-                            $option .= "<option selected='selected' value='{$collegegrpid}'>{$this->StdRegistrations->getuniversity($selected['CollegeGroupSubject']['College']['university_id'])}  {$selected['CollegeGroupSubject']['College']['college_code']} {$selected['CollegeGroupSubject']['College']['name']} </option>";
+                            $option .= "<option selected='selected' value='{$collegegrpid}'>{$this->StdRegistrations->getuniversity($selected['CollegeGroupSubject']['College']['university_id'])}  {$selected['CollegeGroupSubject']['College']['college_code']}  {$selected['CollegeGroupSubject']['College']['name']}</option>";
                         }
                     }
                 }
 
                     $collegegrpid = $privatecollegeoption['College']['id'].",".$privatecollegeoption['CollegeGroupSubject']['id']; 
-                    $option .= "<option value='{$collegegrpid}'>{$this->StdRegistrations->getuniversity($privatecollegeoption['College']['university_id'])}  {$privatecollegeoption['College']['college_code']} {$privatecollegeoption['College']['name']} </option>";
+                    $option .= "<option value='{$collegegrpid}'>{$this->StdRegistrations->getuniversity($privatecollegeoption['College']['university_id'])}  {$privatecollegeoption['College']['college_code']}  {$privatecollegeoption['College']['name']}</option>";
                 
             }
         }

@@ -71,7 +71,7 @@ $gender = array('M' => 'Male', 'F' => 'Female');?>
             <th><?php echo $this->Paginator->sort('application_number'); ?></th>
             <th><?php echo $this->Paginator->sort('Alloted College'); ?></th>
             <th><?php echo "University"; ?></th>
-            <th><?php echo "Course"; ?></th>
+            <th><?php echo "Ranking Basis"; ?></th>
             <th><?php echo $this->Paginator->sort('total_percentage'); ?></th>
             <th><?php echo $this->Paginator->sort('Rank'); ?></th>
             <th><?php echo $this->Paginator->sort('allocation_year'); ?></th>
