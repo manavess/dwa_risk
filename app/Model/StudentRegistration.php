@@ -256,14 +256,14 @@ class StudentRegistration extends AppModel {
             ),
         ),
         'guardian_nationality_number' => array(
-            'notempty' => array(
-                'rule' => array('notempty'),
-                'message' => 'Guardian nationality number should not be empty',
-            ),
+//            'notempty' => array(
+//                'rule' => array('notempty'),
+//                'message' => 'Guardian nationality number should not be empty',
+//            ),
             'alphaNumeric' => array(
                 'rule' => array('alphaNumeric'),
                 'message' => 'Guardian Nationality number should be Alphabets and numbers only',
-                'allowEmpty' => false,
+                'allowEmpty' => true,
             ),
             'match' => array(
                 'rule' => array('match', 'nationality_number'),
@@ -274,6 +274,7 @@ class StudentRegistration extends AppModel {
             'date' => array(
                 'rule' => array('date'),
                 'message' => 'Guardian nationality issue date should not be empty',
+                'allowEmpty' => true,
             ),
         ),
         'guardian_nationality_issue_date' => array(
@@ -283,7 +284,8 @@ class StudentRegistration extends AppModel {
 //                ),
             'futureDate' => array(
                 'rule' => array('futureDate', 'guardian_nationality_issue_date'),
-                'message' => 'Guardian nationality issue date can not be greater than today date.'
+                'message' => 'Guardian nationality issue date can not be greater than today date.',
+                'allowEmpty' => true,
             ),
         ),
         'stream' => array(
