@@ -73,7 +73,7 @@ if(!empty($nominate)){
     $html .= "  <th ><b>Allotted College</b></th>
                 <th ><b>University</b></th>";
         }
-       
+    $html .= "<th><b>Course</b></th>";
     $html .= "<th><b>Total Percentage</b></th>";   
     $html .= "  <th ><b>Rank</b></th>
                 </tr>";
@@ -93,6 +93,7 @@ if(!empty($nominate)){
                 $html .= "<td >".@$studentAlotment['Colleges']['name']."</td>";
                 $html .= "<td >".@$this->StdRegistrations->getuniversity($studentAlotment['Colleges']['university_id'])."</td>";
                }
+                $html .= "<td >".@$this->StdRegistrations->getcourse($studentAlotment['StudentAlotment']['course_id'])."</td>";
                 $html .= "<td >".@$studentAlotment['StudentRegistration']['total_percentage']."</td>";
                 $html .= "<td >".@$studentAlotment['StudentAlotment']['grade']."</td></tr>";
              } $i++;   endforeach;

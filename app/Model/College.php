@@ -292,7 +292,7 @@ class College extends AppModel {
             'conditions' => '',
             'fields' => '',
             'order' => ''
-        )
+        ),
     );
 
 }

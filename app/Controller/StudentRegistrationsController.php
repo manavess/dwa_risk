@@ -21,9 +21,9 @@ class StudentRegistrationsController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('login', 'registerstudent', 'getregsubjectlist', 'getsubmarks', 'studentinfoboard', 'reciept', 'getcitylist', 'getstatelist', 'getsubjectlist', 'getcollegelist', 'calculatepercentage', 'download_document', 'changecollege');
-        //$group_id = $this->Session->read('Auth.User.group_id');
-        //if (isset($group_id) && $this->action == 'login')
-        //  $this->deshboard($this->Session->read('Auth.User.group_id'));
+//$group_id = $this->Session->read('Auth.User.group_id');
+//if (isset($group_id) && $this->action == 'login')
+//  $this->deshboard($this->Session->read('Auth.User.group_id'));
     }
 
     /**
@@ -124,7 +124,7 @@ class StudentRegistrationsController extends AppController {
                 $conditions[] = "StudentPreferedColleges.college_group_subject_id IN (" . $collegegrplist . ")";
             }
 
-            // echo $this->request->data['StudentRegistration']['year'];
+// echo $this->request->data['StudentRegistration']['year'];
             if (!empty($this->request->data['StudentRegistration']['year']) || !empty($this->passedArgs['year'])) {
                 $this->passedArgs['year'] = isset($this->request->data['StudentRegistration']['year']) ? $this->request->data['StudentRegistration']['year'] : $this->passedArgs['year'];
                 $conditions[] = "year(`StudentRegistration`.`created`)='" . $this->passedArgs['year'] . "'";
@@ -134,7 +134,7 @@ class StudentRegistrationsController extends AppController {
             if (!empty($this->passedArgs['application_number'])) {
                 $conditions[] = "StudentRegistration.application_number ='" . $this->passedArgs['application_number'] . "'";
             }
-
+//pr($conditions);die;
 
 
             if (!empty($conditions)) {
@@ -153,7 +153,7 @@ class StudentRegistrationsController extends AppController {
                         $whereRegID = "StudentRegistration.id IN (" . $totalregids . ")";
 
                         $data = $this->paginate('StudentRegistration', array($whereRegID));
-                        //$data = $this->StudentRegistration->find('all',array('conditions'=>$whereRegID));
+//$data = $this->StudentRegistration->find('all',array('conditions'=>$whereRegID));
                         $this->set('studentRegistrations', $data);
                     }
                 } else {
@@ -215,7 +215,7 @@ class StudentRegistrationsController extends AppController {
 
         /* subject list and university */
         $studentRegistrationData = $this->StudentRegistration->find('first', $options);
-        //pr($studentRegistrationData); exit;
+//pr($studentRegistrationData); exit;
         $this->set('studentRegistration', $studentRegistrationData);
         $this->loadModel('StudentPreferedColleges');
 
@@ -247,7 +247,7 @@ class StudentRegistrationsController extends AppController {
                     }
                 } else {
                     $collegeGroupArr = $this->Colleges->read('', $value['StudentPreferedColleges']['college_id']);
-                    //pr($collegeGroupArr); die;
+//pr($collegeGroupArr); die;
                     $finalArr['collegename'] = $collegeGroupArr['Colleges']['name'];
                     $finalArr['university_id'] = $collegeGroupArr['Colleges']['university_id'];
                     $finalArr['groupsubjectName'] = 'Not Applicable';
@@ -259,7 +259,7 @@ class StudentRegistrationsController extends AppController {
             }
             $stdselectedcollege = $collegeuniversitydata;
         }
-        //* getting subjects list from student subjects table
+//* getting subjects list from student subjects table
         $this->loadModel('StudentSubject');
 
         $studentsubject = $this->StudentSubjects->find('all', array('conditions' => array('student_registration_id' => $id)));
@@ -330,7 +330,7 @@ class StudentRegistrationsController extends AppController {
             if ($this->StudentRegistration->validates()) {
                 $msg = '';
 
-                //pr($this->request->data); die;
+//pr($this->request->data); die;
                 if (!empty($this->request->data) && $this->request->data['StudentRegistration']['student_document']['error'] == '0' && is_uploaded_file($this->request->data['StudentRegistration']['student_document']['tmp_name'])) {
 
                     $photoData = fread(fopen($this->request->data['StudentRegistration']['student_document']['tmp_name'], "r"), $this->request->data['StudentRegistration']['student_document']['size']);
@@ -347,7 +347,7 @@ class StudentRegistrationsController extends AppController {
 
                     $this->request->data['StudentRegistration']['ip_address'] = $this->request->clientIp();
 
-                    // For User Id
+// For User Id
                     $userid = $this->Session->read('Auth.User.id');
                     $this->request->data['StudentRegistration']['created_by'] = $userid;
 
@@ -372,7 +372,7 @@ class StudentRegistrationsController extends AppController {
                     $streams = array();
                     $streams = $this->StudentRegistration->getColumnType('stream');
 
-                    // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
                     if (!empty($streams) && isset($this->request->data['StudentRegistration']['stream'])) {
                         preg_match_all("/'(.*?)'/", $streams, $enums);
                         $streamdata = str_replace("'", '', $enums[0][$this->request->data['StudentRegistration']['stream']]);
@@ -388,7 +388,7 @@ class StudentRegistrationsController extends AppController {
                         $schoolty = str_replace("'", '', $enums[0][$this->request->data['StudentRegistration']['school_type']]);
                         $this->request->data['StudentRegistration']['school_type'] = $schoolty;
                     } else
-                    // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
                         $maritalStatus = array();
                     $marital_status = $this->StudentRegistration->getColumnType('marital_status');
 
@@ -473,7 +473,7 @@ class StudentRegistrationsController extends AppController {
                         }
                     }
                     /**/
-                    //pr($this->request->data['right-select'][0]); die;
+//pr($this->request->data['right-select'][0]); die;
 
                     $collegrpsub = explode(",", $this->request->data['right-select'][0]);
                     if (!empty($collegrpsub[0]) && !empty($collegrpsub[1])) {
@@ -481,7 +481,7 @@ class StudentRegistrationsController extends AppController {
                         $this->request->data['StudentAlotment']['college_group_subject_id'] = $collegrpsub[1];
                     } else {
                         $this->Session->setFlash('Please select recommended college marked in yellow, in order to comply with the available seats as per the combination of subjects ', 'default', array('class' => 'successmessage'));
-                        //$this->redirect(array('action' => 'index'));
+//$this->redirect(array('action' => 'index'));
                         $this->redirect(array('action' => 'index'));
                     }
 
@@ -504,7 +504,7 @@ class StudentRegistrationsController extends AppController {
                                 $numofseatupdate = array();
 
 
-                                // Student Subject option
+// Student Subject option
                                 $this->loadModel('StudentSubjects');
                                 $SubjectId = $this->request->data['subjectid'];
                                 $SubjectPercentage = $this->request->data['percentage'];
@@ -560,7 +560,7 @@ class StudentRegistrationsController extends AppController {
                                 }
 
 
-                                //end of getting values out of grade
+//end of getting values out of grade
 
                                 foreach ($subjectArr as $key => $value) {
                                     if (!empty($key) && !empty($value)) {
@@ -573,6 +573,18 @@ class StudentRegistrationsController extends AppController {
                                     $msg .= '</BR> No Subject marks has been saved';
                                 }
 
+                                //Start- Update Course Id in Student Registrations //
+
+                                $this->loadModel('StudentSubjects');
+                                //pr($registrationId);
+                                $count = $this->StudentSubjects->find('count', array('conditions' => array('student_registration_id' => $registrationId)));
+                                if ($count == 7) {
+                                    $this->StudentRegistration->updateAll(array('course_id' => 1), array('StudentRegistration.id' => $registrationId));
+                                } else {
+                                    $this->StudentRegistration->updateAll(array('course_id' => 2), array('StudentRegistration.id' => $registrationId));
+                                }
+                                //pr($count);die;
+                                //End- Update Course Id in Student Registrations //
                                 // Student Prefered Colleges option
                                 $this->loadModel('StudentPreferedColleges');
 
@@ -602,7 +614,7 @@ class StudentRegistrationsController extends AppController {
                                     $msg .= 'colleges could not be saved succcessfully';
                                 }
 
-                                // For is-mature option
+// For is-mature option
                                 $workExp = '';
                                 $birthCertificateIssueDate = '';
                                 $workExp = '';
@@ -634,14 +646,14 @@ class StudentRegistrationsController extends AppController {
                                     $this->StudentAlotment->create(false);
                                     $this->request->data['StudentAlotment']['id'] = Null;
                                     $this->request->data['StudentAlotment']['student_registration_id'] = $registrationId;
-                                    //$this->request->data['StudentAlotment']['course_id'] = isset($this->request->data['StudentRegistration']['course_id']);
+//$this->request->data['StudentAlotment']['course_id'] = isset($this->request->data['StudentRegistration']['course_id']);
                                     $value = explode(",", $this->request->data['right-select'][0]);
                                     if (!empty($value[0]) && !empty($value[1])) {
                                         $this->request->data['StudentAlotment']['college_id'] = $value[0];
                                         $this->request->data['StudentAlotment']['college_group_subject_id'] = $value[1];
                                     } else {
                                         $this->Session->setFlash('Please select recommended college in order to comply with the available seats as per the combination of subjects ', 'default', array('class' => 'successmessage'));
-                                        //$this->redirect(array('action' => 'index'));
+//$this->redirect(array('action' => 'index'));
                                         $this->redirect(array('action' => 'reciept'));
                                     }
 
@@ -670,7 +682,7 @@ class StudentRegistrationsController extends AppController {
                                 /* ends here */
 
                                 $this->Session->setFlash('The student registration has been saved. ' . $info, 'default', array('class' => 'successmessage'));
-                                //$this->redirect(array('action' => 'index'));
+//$this->redirect(array('action' => 'index'));
                                 $this->redirect(array('action' => 'reciept'));
                             } else {
                                 $this->Session->setFlash(__('The student registration could not be saved. Please, try again.'));
@@ -686,7 +698,7 @@ class StudentRegistrationsController extends AppController {
                     $this->Session->setFlash(__('Please check either you missed uploading document or if not choose a small size doc with maximum size of 1 MB'));
                 }
             } else {
-                // didn't validate logic
+// didn't validate logic
                 $errors = $this->StudentRegistration->validationErrors;
             }
         }
@@ -708,25 +720,25 @@ class StudentRegistrationsController extends AppController {
         $groupSubjects = $this->StudentRegistration->GroupSubject->find('list');
         $employees = $this->StudentRegistration->Employee->find('list');
         $streams = $this->StudentRegistration->getColumnType('stream');
-        // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
         preg_match_all("/'(.*?)'/", $streams, $enums);
 
         $this->set('streams', $enums[1]);
 
         $schooltypes = $this->StudentRegistration->getColumnType('school_type');
-        // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
         preg_match_all("/'(.*?)'/", $schooltypes, $enums);
 
         $this->set('schooltypes', $enums[1]);
 
         $marital_status = $this->StudentRegistration->getColumnType('marital_status');
-        // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
         preg_match_all("/'(.*?)'/", $marital_status, $enums);
 
         $this->set('marital_status', $enums[1]);
 
         $nationality = $this->StudentRegistration->getColumnType('nationality');
-        // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
         preg_match_all("/'(.*?)'/", $nationality, $enums);
 
         $this->set('nationalities', $enums[1]);
@@ -746,8 +758,8 @@ class StudentRegistrationsController extends AppController {
             $collegegroups = $this->CollegeGroupSubjects->read(null, $collegegrpid);
             if (!empty($collegegroups)) {
                 $totalseats = $collegegroups['CollegeGroupSubjects']['no_of_seat'];
-                // pr($collegegroup);
-                //echo $totalseats;die;
+// pr($collegegroup);
+//echo $totalseats;die;
 
                 $avaliableseat = round($totalseats * 25 / 100, 0, PHP_ROUND_HALF_DOWN);
                 $allocatedseats = $this->StudentAlotment->find('count', array('conditions' => array('college_group_subject_id' => $collegegrpid)));
@@ -814,7 +826,7 @@ class StudentRegistrationsController extends AppController {
             $this->request->data['StudentRegistration']['ip_address'] = $this->request->clientIp();
 
 
-            // For User Id
+// For User Id
             $userid = $this->Session->read('Auth.User.id');
             $this->request->data['StudentRegistration']['modified_by'] = $userid;
             $this->request->data['StudentRegistration']['is_emp_referance'] = $this->request->data['employee'];
@@ -834,13 +846,13 @@ class StudentRegistrationsController extends AppController {
             $this->request->data['StudentRegistration']['submission_date'] = date("Y-m-d h:i:s");
             $streams = array();
             $streams = $this->StudentRegistration->getColumnType('stream');
-            // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
 
             if (!empty($streams) && isset($this->request->data['StudentRegistration']['stream'])) {
 
                 preg_match_all("/'(.*?)'/", $streams, $enums);
 
-                //pr($enums); die;
+//pr($enums); die;
                 $streamdata = str_replace("'", '', $enums[0][$this->request->data['StudentRegistration']['stream']]);
                 $this->request->data['StudentRegistration']['stream'] = $streamdata;
             }
@@ -852,7 +864,7 @@ class StudentRegistrationsController extends AppController {
                 $schoolty = str_replace("'", '', $enums[0][$this->request->data['StudentRegistration']['school_type']]);
                 $this->request->data['StudentRegistration']['school_type'] = $schoolty;
             }
-            // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
 
             $marital_status = array();
             $marital_status = $this->StudentRegistration->getColumnType('marital_status');
@@ -913,8 +925,8 @@ class StudentRegistrationsController extends AppController {
 
                 if ($this->StudentRegistration->save($this->request->data)) {
                     $registrationId = $id;
-                    // Student Subject option
-                    // Student Subject option
+// Student Subject option
+// Student Subject option
                     $this->loadModel('StudentSubjects');
                     $SubjectId = $this->request->data['subjectid'];
                     $SubjectPercentage = $this->request->data['percentage'];
@@ -979,7 +991,7 @@ class StudentRegistrationsController extends AppController {
                     }
 
 
-                    //end of getting values out of grade
+//end of getting values out of grade
 
                     foreach ($subjectArr as $key => $value) {
                         if (!empty($key) && !empty($value)) {
@@ -996,7 +1008,7 @@ class StudentRegistrationsController extends AppController {
                         $this->Session->setFlash(__($msg));
                     }
 
-                    // Student Prefered Colleges option
+// Student Prefered Colleges option
                     $this->loadModel('StudentPreferedColleges');
 
                     $collegeIdArr = $this->request->data['right-select'];
@@ -1017,7 +1029,7 @@ class StudentRegistrationsController extends AppController {
                         $d++;
                     }
 
-                    //pr($collegeData); die;   
+//pr($collegeData); die;   
                     $this->StudentPreferedColleges->deleteAll(array('StudentPreferedColleges.student_registration_id' => $id), false);
 
                     if ($this->StudentPreferedColleges->saveAll($collegeData)) {
@@ -1026,7 +1038,7 @@ class StudentRegistrationsController extends AppController {
                         
                     }
 
-                    // For is-mature option
+// For is-mature option
 
                     if ($this->request->data['matureStudent'] == 'Y') {
                         $workExp = '';
@@ -1058,7 +1070,7 @@ class StudentRegistrationsController extends AppController {
 
                         $this->loadModel('StudentAlotment');
                         $stdalot = $this->StudentAlotment->find('first', array('fields' => array('id'), 'conditions' => array('StudentAlotment.student_registration_id' => $registrationId)));
-                        // $this->request->data['StudentAlotment']['id'] = NULL;
+// $this->request->data['StudentAlotment']['id'] = NULL;
                         if (!empty($stdalot)) {
                             $this->request->data['StudentAlotment']['id'] = $stdalot['StudentAlotment']['id'];
                         } else {
@@ -1066,21 +1078,21 @@ class StudentRegistrationsController extends AppController {
                         }
 
                         $this->request->data['StudentAlotment']['student_registration_id'] = $registrationId;
-                        //$this->request->data['StudentAlotment']['course_id'] = $this->request->data['StudentRegistration']['course_id'];
+//$this->request->data['StudentAlotment']['course_id'] = $this->request->data['StudentRegistration']['course_id'];
                         $value = explode(",", $this->request->data['right-select'][0]);
                         if (!empty($value[0]) && !empty($value[1])) {
                             $this->request->data['StudentAlotment']['college_id'] = $value[0];
                             $this->request->data['StudentAlotment']['college_group_subject_id'] = $value[1];
                         } else {
                             $this->Session->setFlash('Please select recommended college in order to comply with the available seats as per the combination of subjects ', 'default', array('class' => 'successmessage'));
-                            //$this->redirect(array('action' => 'index'));
+//$this->redirect(array('action' => 'index'));
                             $this->redirect(array('action' => 'index'));
                         }
 
                         $this->request->data['StudentAlotment']['allocation_year'] = date('Y');
                         $this->request->data['StudentAlotment']['status'] = 'foreign';
                         $this->StudentAlotment->save($this->request->data['StudentAlotment']);
-                        //  echo $vijay = 'Yes';
+//  echo $vijay = 'Yes';
                     }
                     /**/
 
@@ -1120,7 +1132,7 @@ class StudentRegistrationsController extends AppController {
         sort($studentSelectedSub);
 
         /**/
-        //$courses = $this->StudentRegistration->Course->find('list',array('limit'=>2));
+//$courses = $this->StudentRegistration->Course->find('list',array('limit'=>2));
         $religions = $this->StudentRegistration->Religion->find('list');
         $cities = $this->StudentRegistration->City->find('list');
         $states = $this->StudentRegistration->State->find('list');
@@ -1128,24 +1140,24 @@ class StudentRegistrationsController extends AppController {
         $groupSubjects = $this->StudentRegistration->GroupSubject->find('list');
         $employees = $this->StudentRegistration->Employee->find('list');
         $streams = $this->StudentRegistration->getColumnType('stream');
-        // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
         preg_match_all("/'(.*?)'/", $streams, $enums);
         $this->set('streams', $enums[1]);
 
         $schooltypes = $this->StudentRegistration->getColumnType('school_type');
-        // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
         preg_match_all("/'(.*?)'/", $schooltypes, $enums);
 
         $this->set('schooltypes', $enums[1]);
 
         $marital_status = $this->StudentRegistration->getColumnType('marital_status');
-        // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
         preg_match_all("/'(.*?)'/", $marital_status, $enums);
 
         $this->set('marital_status', $enums[1]);
 
         $nationality = $this->StudentRegistration->getColumnType('nationality');
-        // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
         preg_match_all("/'(.*?)'/", $nationality, $enums);
 
         $this->set('nationalities', $enums[1]);
@@ -1170,9 +1182,9 @@ class StudentRegistrationsController extends AppController {
 
         $this->loadModel('StudentAlotment');
         $isalloted = $this->StudentAlotment->find('first', array('fields' => array('student_registration_id'), 'conditions' => array('StudentAlotment.student_registration_id' => $id)));
-        //pr($isalloted); exit;
-        // try{
-        //if(empty($isalloted)){
+//pr($isalloted); exit;
+// try{
+//if(empty($isalloted)){
         $this->loadModel('StudentGrade');
         $isexiststdgrade = $this->StudentGrade->find('first', array('StudentGrade.student_registration_id' => $id));
         $this->loadModel('StudentSubjects');
@@ -1217,7 +1229,7 @@ class StudentRegistrationsController extends AppController {
         $this->loadModel('StudentSecondarySchDetail');
         $certificate_id = $this->Session->read('sec_certificate_id');
         $year = $this->Session->read('yearofcertificate');
-        //print_r($year);
+//print_r($year);
         if (!empty($certificate_id)) {
             $certificateId = $this->Session->read('sec_certificate_id');
         } //else if (!empty($this->request->data['certificateId'])) {
@@ -1247,7 +1259,7 @@ class StudentRegistrationsController extends AppController {
                 $certificateCode = $this->StudentRegistration->find('first', array('fields' => array('certificate_index'), 'conditions' => array('StudentRegistration.certificate_index' => $this->request->data['StudentRegistration']['certificate_index'])));
 
                 $msg = '';
-                //pr($this->request->data); die;
+//pr($this->request->data); die;
                 if (!empty($this->request->data) && $this->request->data['StudentRegistration']['student_document']['error'] == '0' && is_uploaded_file($this->request->data['StudentRegistration']['student_document']['tmp_name'])) {
 
                     $photoData = fread(fopen($this->request->data['StudentRegistration']['student_document']['tmp_name'], "r"), $this->request->data['StudentRegistration']['student_document']['size']);
@@ -1266,7 +1278,7 @@ class StudentRegistrationsController extends AppController {
 
                 $this->request->data['StudentRegistration']['ip_address'] = $this->request->clientIp();
 
-                // For User Id
+// For User Id
                 $userid = array();
                 $userid = $this->StudentRegistration->find('first', array('order' => 'StudentRegistration.id DESC'));
                 if (!empty($userid)) {
@@ -1275,7 +1287,7 @@ class StudentRegistrationsController extends AppController {
                 } else {
                     $userid = 1;
                 }
-                // For set Admission Type
+// For set Admission Type
                 $this->request->data['StudentRegistration']['admission_type'] = 'N';
 
 
@@ -1289,7 +1301,7 @@ class StudentRegistrationsController extends AppController {
                 /* Edited by Vijay on 24th August */
                 $streams = array();
                 $streams = $this->StudentRegistration->getColumnType('stream');
-                // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
                 if (!empty($streams) && isset($this->request->data['StudentRegistration']['stream'])) {
                     preg_match_all("/'(.*?)'/", $streams, $enums);
 
@@ -1304,7 +1316,7 @@ class StudentRegistrationsController extends AppController {
                     $schoolty = str_replace("'", '', $enums[0][$this->request->data['StudentRegistration']['school_type']]);
                     $this->request->data['StudentRegistration']['school_type'] = $schoolty;
                 }
-                // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
 
                 $maritalStatus = '';
                 $marital_status = array();
@@ -1395,7 +1407,7 @@ class StudentRegistrationsController extends AppController {
 
                             $createdby = array('created_by' => $registrationId);
                             $this->StudentRegistration->updateAll($createdby, array('StudentRegistration.id' => $registrationId), true);
-                            // Student Subject option
+// Student Subject option
                             $this->loadModel('StudentSubjects');
                             $SubjectId = $this->request->data['subjectid'];
                             $SubjectPercentage = $this->request->data['percentage'];
@@ -1413,7 +1425,20 @@ class StudentRegistrationsController extends AppController {
 
                             $this->StudentSubjects->saveAll($data);
 
-                            // Student Prefered Colleges option
+
+                            //****Start- Update Course Id in Student Registrations ****//
+
+                            $this->loadModel('StudentSubjects');
+                            
+                            $count = $this->StudentSubjects->find('count', array('conditions' => array('student_registration_id' => $registrationId)));
+                            if ($count == 7) {
+                                $this->StudentRegistration->updateAll(array('course_id' => 1), array('StudentRegistration.id' => $registrationId));
+                            } else {
+                                $this->StudentRegistration->updateAll(array('course_id' => 2), array('StudentRegistration.id' => $registrationId));
+                            }
+                            
+                            //****End- Update Course Id in Student Registrations ****//
+// Student Prefered Colleges option
                             $this->loadModel('StudentPreferedColleges');
 
                             $collegeIdArr = $this->request->data['right-select'];
@@ -1479,7 +1504,7 @@ class StudentRegistrationsController extends AppController {
         }
 
 
-        //$this->set('secstdname',$secstdname);
+//$this->set('secstdname',$secstdname);
 
         $courses = $this->StudentRegistration->Course->find('list', array('limit' => 2));
         $religions = $this->StudentRegistration->Religion->find('list');
@@ -1493,18 +1518,18 @@ class StudentRegistrationsController extends AppController {
         $certificateData['SecondarySchoolCertificate']['date_of_birth'] = date("d-m-Y", strtotime($certificateData['SecondarySchoolCertificate']['date_of_birth']));
         $certificateData['SecondarySchoolCertificate']['certificate_date'] = date("d-m-Y", strtotime($certificateData['SecondarySchoolCertificate']['certificate_date']));
         $streams = $this->StudentRegistration->getColumnType('stream');
-        // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
         preg_match_all("/'(.*?)'/", $streams, $enums);
         $this->set('streams', $enums[1]);
 
         $schooltypes = $this->StudentRegistration->getColumnType('school_type');
-        // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
         preg_match_all("/'(.*?)'/", $schooltypes, $enums);
 
         $this->set('schooltypes', $enums[1]);
 
         $marital_status = $this->StudentRegistration->getColumnType('marital_status');
-        // extract values in single quotes separated by comma
+// extract values in single quotes separated by comma
         preg_match_all("/'(.*?)'/", $marital_status, $enums);
 
         $this->set('marital_status', $enums[1]);
@@ -1584,7 +1609,7 @@ class StudentRegistrationsController extends AppController {
                 $c++;
             }
         }
-        // pr($studentsubject); die;
+// pr($studentsubject); die;
 
         $this->set('studentsubject', $studentsubject);
 
@@ -1693,7 +1718,7 @@ class StudentRegistrationsController extends AppController {
 
                     $studentsub = $this->Subject->find('all', array('fields' => array('name'), 'conditions' => array('id' => $subjectmarks['StudentSubjects']['subject_id'])));
                     $student['subject_id'] = $subjectmarks['StudentSubjects']['subject_id'];
-                    // $student['name']=@$studentsub[0]['Subject']['name'];
+// $student['name']=@$studentsub[0]['Subject']['name'];
                     $student['marks'] = $subjectmarks['StudentSubjects']['marks'];
 
                     $studentsubmarks[] = $student;
@@ -1710,7 +1735,7 @@ class StudentRegistrationsController extends AppController {
             $this->set('qualifying_subjects', $qualifying_subjects);
 
             $subjects_diploma = $this->Subject->find('all', array('fields' => array('id', 'name'), 'condition' => array('Subject.status' => 'Y')));
-            //pr($studentTotalsubmarks); exit;
+//pr($studentTotalsubmarks); exit;
             $marks = '';
             for ($i = 0; $i < count($subjects_diploma); $i++) {
 
@@ -1752,17 +1777,17 @@ class StudentRegistrationsController extends AppController {
         $this->loadModel('AdminPreference');
         $markslimit = array('');
         $markslimits = $this->AdminPreference->find('all', array('fields' => array('markslimit'), 'conditions' => array('year' => date('Y'))));
-        //pr($markslimits);
+//pr($markslimits);
         if (!empty($markslimits)) {
             $markslimit = $markslimits[0]['AdminPreference']['markslimit'];
         }
-        //pr($markslimit);die;
+//pr($markslimit);die;
         $markssystem = $this->request->data['markssystem']; /* to track grade or marks percentage has been selected */
-        //pr($markssystem);die;
+//pr($markssystem);die;
         $gradetype = '';
-        // if (!empty($this->request->data['gradesystem'])) {
-        //$gradetype = $this->request->data['gradesystem'];
-        //}
+// if (!empty($this->request->data['gradesystem'])) {
+//$gradetype = $this->request->data['gradesystem'];
+//}
 
         $checkarray = array('1', '2', '3', '4', '5', '6', '7', '8', '9');
         $studentstatus = array();
@@ -1876,7 +1901,7 @@ class StudentRegistrationsController extends AppController {
             $this->loadModel('GroupSubSubject');
             $this->loadModel('GroupSubject');
 
-            //$group_subject_data = $this->GroupSubSubject->query('select group_concat(subject_id) as subject_code, group_subject_id from group_sub_subjects group by group_subject_id having subject_code="' . $totalsubjectId . '" order by subject_id');
+//$group_subject_data = $this->GroupSubSubject->query('select group_concat(subject_id) as subject_code, group_subject_id from group_sub_subjects group by group_subject_id having subject_code="' . $totalsubjectId . '" order by subject_id');
             $group_subject_data = $this->GroupSubSubject->query('select group_concat(subject_id) as subject_code, group_subject_id from group_sub_subjects group by group_subject_id order by subject_id');
             $diplomagrpsub = array();
 
@@ -1924,8 +1949,8 @@ class StudentRegistrationsController extends AppController {
                 foreach ($group_subject as $group_subjects_filter) {
                     if (!empty($group_subjects_filter['CollegeGroupSubject']['id'])) {
                         $totalseats = $group_subjects_filter['CollegeGroupSubject']['no_of_seat'];
-                        // pr($collegegroup);
-                        //echo $totalseats;die;
+// pr($collegegroup);
+//echo $totalseats;die;
 
                         $this->loadModel("StudentAlotmentDetail");
                         $isallocatted = $this->StudentAlotmentDetail->find('first', array('conditions' => array('YEAR(StudentAlotmentDetail.created)' => date('Y'))));
@@ -1954,7 +1979,7 @@ class StudentRegistrationsController extends AppController {
 
 
             /* ends here */
-            //pr($this->request->data['admissiontype']); die;
+//pr($this->request->data['admissiontype']); die;
             if (!empty($this->request->data['admissiontype'])) {
                 if ($this->request->data['admissiontype'] == 'P') {
                     $this->set('admission_type', $this->request->data['admissiontype']);
@@ -1986,8 +2011,8 @@ class StudentRegistrationsController extends AppController {
 
         Configure::write('debug', 1);
         $studentData = $this->StudentRegistration->find('first', array('conditions' => array('StudentRegistration.id' => $id)));
-        //  $docname = 'mydoc';
-        // print_r($studentData); die;
+//  $docname = 'mydoc';
+// print_r($studentData); die;
 //        $extension = '';
 //        $finfo = new finfo(FILEINFO_MIME);
 //        $finfo->buffer($studentData['StudentRegistration']['student_document']) . "\n";
@@ -1998,7 +2023,7 @@ class StudentRegistrationsController extends AppController {
 //            $extension = explode("/", $finfo);
 //            $extension = $extension[1];
 //        }
-        // header('Content-type: '.$finfo);
+// header('Content-type: '.$finfo);
         header('Expires: 0');
 
         header('Pragma: public');
@@ -2011,7 +2036,7 @@ class StudentRegistrationsController extends AppController {
         header('Content-Disposition: attachement; filename=' . $studentData['StudentRegistration']['applicant_name']);
         header('Content-Transfer-Encoding: binary');
 
-        //echo @fread();
+//echo @fread();
         echo $studentData['StudentRegistration']['student_document'];
         exit();
     }
@@ -2076,12 +2101,12 @@ class StudentRegistrationsController extends AppController {
 
         $studentRegistration = $this->StudentRegistration->find('first', $options);
 
-        //$studentRegistration['StudentRegistration']['coursename'] = $studentRegistration['Course']['name'];
+//$studentRegistration['StudentRegistration']['coursename'] = $studentRegistration['Course']['name'];
         $studentRegistration['StudentRegistration']['date_of_certificate'] = date("d-m-Y", strtotime($studentRegistration['StudentRegistration']['date_of_certificate']));
 
         $this->loadModel('StudentPreferedColleges');
         $collegeGroupSubjectIdArr = $this->StudentPreferedColleges->find('all', array('fields' => array('college_id'), 'conditions' => array('StudentPreferedColleges.student_registration_id' => $registrationId), 'order' => array('college_preference')));
-        //pr($collegeGroupSubjectIdArr); die;
+//pr($collegeGroupSubjectIdArr); die;
         $studentRegistration['StudentRegistration']['numberofchoice'] = count($collegeGroupSubjectIdArr);
 
         $this->loadModel('CollegeGroupSubject');
@@ -2141,9 +2166,9 @@ class StudentRegistrationsController extends AppController {
 
         $this->loadModel("StudentAlotmentDetail");
         $isallocatted = $this->StudentAlotmentDetail->find('first', array('conditions' => array('StudentAlotmentDetail.year' => $admyear)));
-        
+
         $this->loadModel("AdminPreference");
-        $lastdate = $this->AdminPreference->find('first', array('fields' => array('AdminPreference.cut_off_date'), 'conditions' => array('AdminPreference.year' => '2014')));
+        $lastdate = $this->AdminPreference->find('first', array('fields' => array('AdminPreference.cut_off_date'), 'conditions' => array('AdminPreference.year' => '2015')));
 
         if ($lastdate['AdminPreference']['cut_off_date'] > date('Y-m-d')) {
 
@@ -2152,19 +2177,6 @@ class StudentRegistrationsController extends AppController {
         }
 
 
-
-//        $unallottedstudents = $this->StudentRegistration->find('all',array('fields'=>array('id'),'conditions'=>array('StudentRegistration.nationality'=>'South Sudan','year(StudentRegistration.date_of_certificate)'=>$admyear)));
-//        $this->loadModel('StudentAlotment');
-//        $c=1;
-//        $unalotedstd = array();
-//        foreach($unallottedstudents as $unallotted){
-//            
-//            $aloted = $this->StudentAlotment->find('first', array('fields'=>array('StudentAlotment.student_registration_id'),'conditions'=>array('StudentAlotment.student_registration_id'=>'<>'.$unallotted['StudentRegistration']['id'])));
-//            if(!empty($aloted)){
-//                $c = $c++;
-//            }
-//        }
-//       
         if (!empty($isallocatted)) {
             $this->Session->setFlash('Allocation process has been run already for the current year.');
             $this->redirect(array('action' => 'index'));
@@ -2172,19 +2184,16 @@ class StudentRegistrationsController extends AppController {
 
             $this->loadModel('StudentPreferedColleges');
             $this->loadModel('StudentAlotment');
-            $this->loadModel('CollegeGroupSubjects');
+            $this->loadModel('College');
             $data = array();
             $msg = '';
             $status = false;
-            // $this->StudentAlotment->deleteAll(array('allocation_year' => date('Y')));
-            $groupsubjects = $this->StudentPreferedColleges->find('all', array(
-                'fields' => array('DISTINCT college_group_subject_id', 'CollegeGroupSubject.course_id'),
-                'conditions' => array('StudentPreferedColleges.college_group_subject_id <> 0'),
-                'order' => 'college_group_subject_id ASC'
-            ));
 
+            //pr($groupsubjects);die;
             $isnationality = array();
-            /* check for payment before allocation: vijay 15-10-2013 */
+
+            /* check for payment before allocation */
+
             $this->loadModel('BankReceipt');
             $receiptnum = array();
             $totalpaidstudent = array();
@@ -2193,9 +2202,9 @@ class StudentRegistrationsController extends AppController {
             $collegecount = 0;
             $totalgrpsubject = array();
 
-            $receiptnum = $this->BankReceipt->find('all', array('fields' => array('receipt_no'), 'conditions' => array('year' => $admyear)));
+            $receiptnum = $this->BankReceipt->find('all', array('fields' => array('receipt_no'), 'conditions' => array('BankReceipt.year' => $admyear)));
             $isnationality = array();
-            //pr($receiptnum); die;
+
             if (!empty($receiptnum)) {
                 foreach ($receiptnum as $bankreceiptnum) {
 
@@ -2213,128 +2222,118 @@ class StudentRegistrationsController extends AppController {
                     $paidstudentID = '';
                 }
             }
-
-            if (!empty($groupsubjects)) {
-                //              for all college preferences which is maximum 15 the loop will check and run for student alotment.
-                for ($a = 1; $a < 16; $a++) {
-//                   $d=1;
-                    foreach ($groupsubjects as $groupsubject) {
-
-                        $group_subject_id = $groupsubject['StudentPreferedColleges']['college_group_subject_id'];
+//            else{
+//                $this->Session->setFlash('Students Bank Receipt data is not available, Hence allocation can not be executed.');
+//                $this->redirect(array('action' => 'index'));
+//            }
 
 
-                        $studentregistrationlist = $this->StudentPreferedColleges->find('all', array(
-                            'fields' => array('StudentPreferedColleges.student_registration_id'),
-                            'conditions' => array('NOT' => array('StudentPreferedColleges.college_group_subject_id' => '0'),
-                                'StudentRegistration.nationality' => 'South Sudan', 'year(StudentRegistration.date_of_certificate)' => $admyear,
-                                'StudentPreferedColleges.college_group_subject_id' => $group_subject_id, 'StudentPreferedColleges.college_preference' => $a)));
-                        //pr($studentregistrationlist);die;
-                        if (!empty($studentregistrationlist)) {
-                            $studentregistrations = $this->getstudentsortedlist($studentregistrationlist);
-                        } else {
-
-                            $studentregistrations = '';
-                            continue;
-                        }
-//                    if($d==2){
-//                        pr($studentregistrations); die;
-//                    }
-//                    //pr($studentregistrations[0]['studentregistration']); die;
-//                    $d++;
-                        /* check ends here: vijay 15-10-2013 */
-
-                        if (!empty($studentregistrations)) {
-
-                            foreach ($studentregistrations as $studentregistration) {
-                                $studentId = $studentregistration['studentregistration'];
-                                $student = $this->StudentRegistration->read(null, $studentId);
-                                $alloted = $this->StudentAlotment->find('first', array('conditions' => array('StudentAlotment.student_registration_id' => $studentId)));
-
-                                if (empty($alloted)) {
-
-                                    if (!empty($student['StudentPreferedColleges'])) {
-                                        foreach ($student['StudentPreferedColleges'] as $prefredcollege) {
-                                            $collegegroupsubid = $prefredcollege['college_group_subject_id'];
-                                            if (!empty($collegegroupsubid) && $collegegroupsubid != '0') {
-                                                $collegegroup = $this->CollegeGroupSubjects->read(null, $collegegroupsubid);
-                                                if (!empty($collegegroup)) {
-                                                    $totalseats = $collegegroup['CollegeGroupSubjects']['no_of_seat'];
-                                                    // pr($collegegroup);
-                                                    //echo $totalseats;die;
-                                                    //$avaliableseat = round($totalseats * 75 / 100, 0, PHP_ROUND_HALF_DOWN);
-                                                    $avaliableseat = round(floor($totalseats * 75) / 100, 0);
-
-                                                    $allocatedseats = $this->StudentAlotment->find('count', array('conditions' => array('StudentAlotment.college_group_subject_id' => $collegegroupsubid, 'StudentAlotment.college_id' => $collegegroup['CollegeGroupSubjects']['college_id'], 'StudentAlotment.allocation_year' => $admyear)));
-                                                    $avaliableseat = $avaliableseat - $allocatedseats;
-                                                    if ($avaliableseat > 0) {
-                                                        $studentcount++;
-                                                        $collegecount++;
-                                                        $totalgrpsubject[] = $collegegroup['CollegeGroupSubjects']['college_id'];
-
-                                                        $grade = $allocatedseats + 1;
-                                                        $this->StudentAlotment->create(false);
-                                                        $this->StudentAlotment->set(array(
-                                                            'id' => NUll,
-                                                            'student_registration_id' => $studentId,
-                                                            'course_id' => $groupsubject['CollegeGroupSubject']['course_id'],
-                                                            'college_id' => $collegegroup['CollegeGroupSubjects']['college_id'],
-                                                            'college_group_subject_id' => $collegegroupsubid,
-                                                            'grade' => $grade,
-                                                            'allocation_year' => $admyear
-                                                        ));
-                                                        $this->StudentAlotment->save();
-
-                                                        break;
-                                                    }
-                                                } else {
-                                                    
-                                                }
-                                            }
-                                        } /**/
-                                    }
-                                } else {
-                                    continue;
-                                }
-                            }
-                        } else {
-                            $msg = 'No Student for allocation.';
-                        }
-                    }
-                }
-
-                $no_college = array();
-
-                if ($studentcount > 0 && $collegecount > 0) {
-
-
-                    if (!empty($totalgrpsubject)) {
-                        $no_college = array_unique($totalgrpsubject);
-                    }
-                    $no_college = count($no_college);
-                    $userid = $this->Session->read('Auth.User.id');
-
-                    $this->StudentAlotmentDetail->create(false);
-                    $this->StudentAlotmentDetail->set(array(
-                        'id' => NUll,
-                        'year' => $admyear,
-                        'num_of_colleges' => $no_college,
-                        'num_of_students' => $studentcount,
-                        'created_by' => $userid
-                    ));
-
-
-                    $this->StudentAlotmentDetail->save();
-                }
-
-                $status = true;
-                $this->redirect('/StudentAlotments');
+            /*
+             * 
+             * Get All Student list for allotment process
+             * 
+             */
+            $studentlist = $this->StudentRegistration->find('all', array(
+                'fields' => array('id'),
+                'conditions' => array('StudentRegistration.nationality' => 'South Sudan',
+                    'year(StudentRegistration.date_of_certificate)' => $admyear,
+                //'id'=>$totalpaidstudent
+                ),
+            ));
+            if (!empty($studentlist)) {
+                $studentregistrations = $this->getstudentsortedlist($studentlist);
             } else {
-                $msg = 'No College/Student for allocation.';
-                $this->redirect('/StudentAlotments');
+                $studentregistrations = array();
+            }
+
+
+            if (!empty($studentregistrations)) {
+
+                foreach ($studentregistrations as $studentregistration) {
+                    $studentId = $studentregistration['studentregistration'];
+
+                    $student = $this->StudentRegistration->read(null, $studentId);
+
+                    $alloted = $this->StudentAlotment->find('first', array('conditions' => array('StudentAlotment.student_registration_id' => $studentId)));
+
+                    if (empty($alloted)) {
+
+                        if (!empty($student['StudentPreferedColleges'])) {
+                            foreach ($student['StudentPreferedColleges'] as $prefredcollege) {
+                                $collegegroupsubid = $prefredcollege['college_id'];
+                                if (!empty($collegegroupsubid) && $collegegroupsubid != '0') {
+                                    $collegegroup = $this->College->read(null, $collegegroupsubid);
+                                    //pr($collegegroup);die;
+
+                                    if (!empty($collegegroup)) {
+                                        $totalseats = $collegegroup['College']['no_of_seats'];
+                                        $avaliableseat = round(floor($totalseats * 75) / 100, 0);
+                                        $courseId = $student['StudentRegistration']['course_id'];
+                                        $allocatedseats = $this->StudentAlotment->find('count', array('conditions' => array('StudentAlotment.college_id' => $collegegroupsubid, "StudentAlotment.course_id" => $courseId, 'StudentAlotment.allocation_year' => $admyear)));
+                                        $avaliableseat = $avaliableseat - $allocatedseats;
+                                        if ($avaliableseat > 0) {
+                                            $studentcount++;
+                                            $collegecount++;
+                                            $totalgrpsubject[] = $collegegroup['College']['id'];
+
+                                            $grade = $allocatedseats + 1;
+                                            $this->StudentAlotment->create(false);
+                                            $this->StudentAlotment->set(array(
+                                                'id' => NUll,
+                                                'student_registration_id' => $studentId,
+                                                'course_id' => $courseId,
+                                                'college_id' => $collegegroupsubid,
+                                                'college_group_subject_id' => '', //$collegegroupsubid,
+                                                'grade' => $grade,
+                                                'allocation_year' => $admyear
+                                            ));
+                                            $this->StudentAlotment->save();
+
+                                            break;
+                                        }
+                                    } else {
+                                        
+                                    }
+                                }
+                            } /**/
+                        }
+                    } else {
+                        continue;
+                    }
+                }
+            } else {
+                $msg = 'No Student for allocation.';
             }
         }
+
+        $no_college = array();
+
+        if ($studentcount > 0 && $collegecount > 0) {
+
+
+            if (!empty($totalgrpsubject)) {
+                $no_college = array_unique($totalgrpsubject);
+            }
+            $no_college = count($no_college);
+            $userid = $this->Session->read('Auth.User.id');
+
+            $this->StudentAlotmentDetail->create(false);
+            $this->StudentAlotmentDetail->set(array(
+                'id' => NUll,
+                'year' => $admyear,
+                'num_of_colleges' => $no_college,
+                'num_of_students' => $studentcount,
+                'created_by' => $userid
+            ));
+
+
+            $this->StudentAlotmentDetail->save();
+        }
+
+        $status = true;
+        $this->redirect('/StudentAlotments');
     }
-        
+
     private function getstudentsortedlist($studentregistrationlist) {
 
         $sortedlist = array();
@@ -2366,7 +2365,7 @@ class StudentRegistrationsController extends AppController {
                 $totalqulifingmarks = 0;
                 $totalcompulsarymarks = 0;
                 $dateofbirth = '';
-                $studentId = $list['StudentPreferedColleges']['student_registration_id'];
+                $studentId = $list['StudentRegistration']['id'];
 
                 $student = $this->StudentRegistration->read(null, $studentId);
 
@@ -2418,12 +2417,12 @@ class StudentRegistrationsController extends AppController {
             $tmarks[$key] = $row['totalmarks'];
             $cmarks[$key] = $row['totalcompulsarymarks'];
             $qmarks[$key] = $row['totalqulifingmarks'];
-            //    $dob[$key] = $row['dateofbirth'];
+//    $dob[$key] = $row['dateofbirth'];
             $reg[$key] = $row['studentregistration'];
         }
 
         array_multisort($tmarks, SORT_DESC, $cmarks, SORT_DESC, $qmarks, SORT_DESC, $sortedlist);
-        //      pr($sortedlist); die;
+// pr($sortedlist); die;
 
         return $sortedlist;
     }
@@ -2444,7 +2443,7 @@ class StudentRegistrationsController extends AppController {
             $this->StudentRegistration->recursive = 3;
             $options = array('conditions' => array('StudentRegistration.' . $this->StudentRegistration->primaryKey => $id));
             $studentRegistrationData = $this->StudentRegistration->find('first', $options);
-            //pr($studentRegistrationData); exit;
+//pr($studentRegistrationData); exit;
             $this->set('studentRegistration', $studentRegistrationData);
 
             $this->loadModel('StudentPreferedColleges');
@@ -2477,7 +2476,7 @@ class StudentRegistrationsController extends AppController {
                 }
                 $stdselectedcollege = $collegeuniversitydata;
             }
-            //* getting subjects list from student subjects table
+//* getting subjects list from student subjects table
 
             $this->loadModel('StudentSubject');
             $this->loadModel('StudentGrade');
@@ -2594,7 +2593,7 @@ class StudentRegistrationsController extends AppController {
         $this->loadModel('University');
         $this->loadModel('StudentAmendment');
         $this->loadModel('GroupSubject');
-        //$this->set('groupsubjects', $this->GroupSubject->find('list', array('order' => 'GroupSubject.name ASC')));
+//$this->set('groupsubjects', $this->GroupSubject->find('list', array('order' => 'GroupSubject.name ASC')));
         $this->set('universities', $this->University->find('list', array('order' => 'University.name ASC')));
         $this->set('colleges', $this->College->find('list'));
         $this->set('editId', $id);
@@ -2697,22 +2696,22 @@ class StudentRegistrationsController extends AppController {
 
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            //pr()); die;
+//pr()); die;
             $collegedetails = explode(',', $this->request->data['StudentRegistration']['college_id']);
 
             if (!empty($this->request->data['StudentRegistration']['alotmentID'])) {
-                //print_r($this->request->data['StudentRegistration']['alotmentID']); die;  
+//print_r($this->request->data['StudentRegistration']['alotmentID']); die;  
                 $this->loadModel('StudentAlotment');
                 $this->StudentAlotment->data['StudentAlotment']['id'] = $this->request->data['StudentRegistration']['alotmentID'];
-                //print_r($this->StudentAlotment->data); die;
+//print_r($this->StudentAlotment->data); die;
                 $this->StudentAlotment->data['StudentAlotment']['college_id'] = @$collegedetails[0];
                 $this->StudentAlotment->data['StudentAlotment']['college_group_subject_id'] = @$collegedetails[1];
-                //print_r($this->StudentAlotment->data['StudentAlotment']); die;
+//print_r($this->StudentAlotment->data['StudentAlotment']); die;
                 $this->StudentAlotment->save($this->StudentAlotment->data);
             }
 
             $stduniversity = $this->College->find('first', array('fields' => array('university_id'), 'conditions' => array('College.id' => @$collegedetails[0])));
-            //pr($stduniversity);die;
+//pr($stduniversity);die;
 
             $ifexist = $this->StudentAmendment->find('first', array('fields' => array('StudentAmendment.id, StudentAmendment.application_number'), 'conditions' => array('StudentAmendment.application_number' => trim($studentRegistrationData['StudentRegistration']['application_number']))));
             if (!empty($ifexist)) {
@@ -2721,7 +2720,7 @@ class StudentRegistrationsController extends AppController {
             $this->StudentAmendment->data['StudentAmendment']['application_number'] = $this->request->data['StudentRegistration']['application_number'];
             $this->StudentAmendment->data['StudentAmendment']['university_id'] = $stduniversity['College']['university_id'];
             $this->StudentAmendment->data['StudentAmendment']['college_id'] = $this->request->data['StudentRegistration']['college_id'];
-            //$this->StudentAmendment->data['StudentAmendment']['created']= date('Y-m-d');
+//$this->StudentAmendment->data['StudentAmendment']['created']= date('Y-m-d');
             $this->StudentAmendment->data['StudentAmendment']['created_by'] = 1;
             if ($this->StudentAmendment->save($this->StudentAmendment->data['StudentAmendment'])) {
 
@@ -2735,8 +2734,8 @@ class StudentRegistrationsController extends AppController {
         }
     }
 
-    public function download_non_nominated_student(){
-        $this->layout='nominatedstudents';
+    public function download_non_nominated_student() {
+        $this->layout = 'nominatedstudents';
         $this->StudentRegistration->recursive = 0;
 
         $this->loadModel('College');
@@ -2762,7 +2761,7 @@ class StudentRegistrationsController extends AppController {
             $this->set('isalloted', 'Y');
         }
         /**/
-        //pr($this->request->data);die;
+//pr($this->request->data);die;
         if (!empty($this->request->data) || !empty($this->passedArgs['college_id']) || !empty($this->passedArgs['university_id']) || !empty($this->passedArgs['year'])) {
 
             if (isset($this->request->data['Reset'])) {
@@ -2829,18 +2828,18 @@ class StudentRegistrationsController extends AppController {
                 $conditions[] = "StudentPreferedColleges.college_group_subject_id IN (" . $collegegrplist . ")";
             }
 
-            // echo $this->request->data['StudentRegistration']['year'];
+// echo $this->request->data['StudentRegistration']['year'];
             if (!empty($this->request->data['StudentRegistration']['year']) || !empty($this->passedArgs['year'])) {
                 $this->passedArgs['year'] = isset($this->request->data['StudentRegistration']['year']) ? $this->request->data['StudentRegistration']['year'] : $this->passedArgs['year'];
                 $conditions[] = "year(`StudentRegistration`.`created`)='" . $this->passedArgs['year'] . "'";
             }
-            
+
             @$this->passedArgs['application_number'] = isset($this->request->data['StudentRegistration']['application_number']) ? $this->request->data['StudentRegistration']['application_number'] : $this->passedArgs['application_number'];
             if (!empty($this->passedArgs['application_number'])) {
                 $conditions[] = "StudentRegistration.application_number ='" . $this->passedArgs['application_number'] . "'";
             }
-            
-            
+
+
 
             if (!empty($conditions)) {
 
@@ -2858,7 +2857,7 @@ class StudentRegistrationsController extends AppController {
                         $whereRegID = "StudentRegistration.id IN (" . $totalregids . ")";
 
                         $data = $this->paginate('StudentRegistration', array($whereRegID));
-                        //$data = $this->StudentRegistration->find('all',array('conditions'=>$whereRegID));
+//$data = $this->StudentRegistration->find('all',array('conditions'=>$whereRegID));
                         $this->set('studentRegistrations', $data);
                     }
                 } else {
@@ -2888,9 +2887,9 @@ class StudentRegistrationsController extends AppController {
                 $this->set('colleges', $this->College->find('list'));
             }
         } else {
-            //pr($studentRegistrations);die;
+//pr($studentRegistrations);die;
             $this->set('studentRegistrations', $this->StudentRegistration->find('all'));
         }
     }
-        
+
 }

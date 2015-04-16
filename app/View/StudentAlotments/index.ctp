@@ -71,13 +71,16 @@ $gender = array('M' => 'Male', 'F' => 'Female');?>
             <th><?php echo $this->Paginator->sort('application_number'); ?></th>
             <th><?php echo $this->Paginator->sort('Alloted College'); ?></th>
             <th><?php echo "University"; ?></th>
+            <th><?php echo "Course"; ?></th>
             <th><?php echo $this->Paginator->sort('total_percentage'); ?></th>
             <th><?php echo $this->Paginator->sort('Rank'); ?></th>
             <th><?php echo $this->Paginator->sort('allocation_year'); ?></th>
             <th>Allotted</th>
             <th class="actions actions1"><?php echo __('Actions'); ?></th>
         </tr>
-	<?php   $i=1; foreach ($studentAlotments as $studentAlotment): ?>
+	<?php   $i=1; foreach ($studentAlotments as $studentAlotment): 
+            //echo "<pre>";print_r($studentAlotment);die;
+            ?>
         <tr>
             <td><?php echo $i ; ?>&nbsp;</td>
             <td>
@@ -87,20 +90,24 @@ $gender = array('M' => 'Male', 'F' => 'Female');?>
                 <?php echo $this->Html->link($studentAlotment['StudentRegistration']['application_number'], array('controller' => 'student_registrations', 'action' => 'view', $studentAlotment['StudentRegistration']['id'])); ?>
             </td>
             <td>
-      <?php if(!empty($studentAlotment['Colleges']['name'])){ 
-          echo $studentAlotment['Colleges']['name']; 
-      } 
-      ?>
+            <?php if(!empty($studentAlotment['Colleges']['name'])){ 
+                echo $studentAlotment['Colleges']['name']; 
+            } 
+            ?>
             </td>
-            <td><?php echo $this->StdRegistrations->getuniversity($studentAlotment['Colleges']['university_id']); ?>
+            <td>
+                <?php echo $this->StdRegistrations->getuniversity($studentAlotment['Colleges']['university_id']); ?>
+            </td>
+            <td>
+                <?php echo $this->StdRegistrations->getcourse($studentAlotment['StudentAlotment']['course_id']); ?>
             </td>
             <td><?php 
             if($this->StdRegistrations->getpercentage($studentAlotment['StudentRegistration']['total_percentage'])){
                 echo $this->StdRegistrations->getpercentage($studentAlotment['StudentRegistration']['total_percentage']); 
                 
-            }else{ 
+            }else{
                 echo h($studentAlotment['StudentRegistration']['total_percentage']); 
-                } 
+                }
             ?>&nbsp;
             </td>
 

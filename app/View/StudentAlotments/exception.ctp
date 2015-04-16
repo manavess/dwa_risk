@@ -13,11 +13,19 @@
                 } ?>
 <?php echo $this->Form->input('university_id', array('id' => 'universityID', 'empty' => 'select', 'selected' => $universityID, 'options' => $universities)); ?>
         </div>
+        <div class="right-area" style="width:41%!important">
+                <?php if (!empty($courseID)) {
+                    $courseID = $courseID;
+                } else {
+                    $courseID = '';
+                } ?>
+<?php echo $this->Form->input('course_id', array('id' => 'courseID', 'empty' => 'select', 'selected' => $courseID, 'options' => $courses)); ?>
+        </div>
     </div>
     <div class="right-area">
         <div id="form-button">
 
-<?php echo $this->Form->end(__('Search')); ?>
+        <?php echo $this->Form->end(__('Search')); ?>
             <div class="submit" style="padding-left:8px;">
 
         <?php echo $this->Form->reset('Reset', array('title' => 'Reset', 'value' => 'Reset', 'type' => 'submit')); ?>
@@ -30,6 +38,7 @@
 
             <th><?php echo 'University'; ?></th>
             <th><?php echo 'College'; ?></th>
+            <th><?php echo 'Course'; ?></th>
             <th><?php echo 'College Code'; ?></th>
             <th><?php echo 'Planned Nos'; ?></th>
             <th><?php echo 'Nominated Nos'; ?>
@@ -50,6 +59,7 @@
         <tr>
             <td><?php echo $this->StdRegistrations->getuniversity(@$exceptionallotment['Colleges']['university_id']); ?>&nbsp;</td>	
             <td><?php echo @$exceptionallotment['Colleges']['name']; ?>&nbsp;</td>		
+            <td><?php echo $this->StdRegistrations->getcourse(@$exceptionallotment['StudentAlotment']['course_id']); ?>&nbsp;</td>		
             <td><?php echo @$exceptionallotment['Colleges']['college_code']; ?>&nbsp;</td>		
             <td <?php echo $cssclass;?>><?php echo @$exceptionallotment['Colleges']['no_of_seats']; ?>&nbsp;</td>
             <td <?php echo $cssclass;?>>

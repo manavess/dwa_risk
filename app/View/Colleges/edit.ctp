@@ -228,6 +228,5 @@ if($("#grpsubid"+i).is(':checked')==true){
         return true;
         }
 }
-
 }
 </script>

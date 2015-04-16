@@ -115,12 +115,12 @@ class StudentAlotmentsController extends AppController {
 
 
 
-            // $data = $this->StudentAlotment->find('count',array('conditions'=>array('StudentAlotment.course_id'=> $this->passedArgs['course_id'])));
-            // pr($data);die;
+            //$data = $this->StudentAlotment->find('count',array('conditions'=>array('StudentAlotment.course_id'=> $this->passedArgs['course_id'])));
+            //pr($data);die;
             //$this->Session->write('download_students',$data);
 
             $this->set('studentAlotments', $this->paginate('StudentAlotment', $conditions));
-
+            
             $this->set('universityID', $this->passedArgs['university_id']);
             $this->set('colleges', $this->College->find('list', array('conditions' => array('College.university_id' => $this->passedArgs['university_id']), 'order' => 'College.name ASC')));
             $this->set('cities', $this->City->find('list', array('conditions' => array('City.state_id' => $this->passedArgs['state_id']))));
@@ -357,11 +357,15 @@ class StudentAlotmentsController extends AppController {
 
         $this->loadModel('University');
         $this->loadModel('College');
+        $this->loadModel('Course');
         $this->set('universities', $this->University->find('list', array('order' => 'University.name ASC')));
+        $this->set('courses', $this->Course->find('list', array('conditions' => array('id' => array(1, 2)))));
         $conditions = array();
-        if (!empty($this->request->data) || !empty($this->passedArgs['university_id'])) {
+        if (!empty($this->request->data) || !empty($this->passedArgs['university_id']) || !empty($this->passedArgs['course_id'])) {
 
             @$this->passedArgs['university_id'] = isset($this->request->data['StudentAlotment']['university_id']) ? $this->request->data['StudentAlotment']['university_id'] : $this->passedArgs['university_id'];
+            
+            @$this->passedArgs['course_id'] = isset($this->request->data['StudentAlotment']['course_id']) ? $this->request->data['StudentAlotment']['course_id'] : $this->passedArgs['course_id'];
 
             if (!empty($this->passedArgs['university_id'])) {
 
@@ -379,8 +383,16 @@ class StudentAlotmentsController extends AppController {
                 $conditions[] = "Colleges.id IN (" . $collegelist . ")";
                 $this->Session->write('collegeid', $collegelist);
             }
+            
+            if (!empty($this->passedArgs['course_id'])) {
+                $conditions[] = "StudentAlotment.course_id ='" . $this->passedArgs['course_id'] . "'";
+            }
+            
             $this->set('universityID', $this->passedArgs['university_id']);
+            $this->set('courseID', $this->passedArgs['course_id']);
+            
             $this->Session->write('universityid', $this->passedArgs['university_id']);
+            $this->Session->write('courseid', $this->passedArgs['course_id']);
         }
 
         $this->StudentAlotment->recursive = 3;
@@ -404,25 +416,36 @@ class StudentAlotmentsController extends AppController {
     }
 
     public function download_exceptions() {
-//echo '<pre>';pr($this->data); pr($_SESSION);die;
         $conditions = '';
-        $conditions = $this->Session->read('collegeid');
         $university_id = '';
+        $course_id = '';
+        $conditions = $this->Session->read('collegeid');
         $university_id = $this->Session->read('universityid');
+        $course_id = $this->Session->read('courseid');
+        
         $this->set('university_id', $university_id);
-        $this->Session->delete('collegeid');
-        $this->Session->delete('universityid');
+        $this->set('course_id', $course_id);
+        
+        
         //pr($university_id);die;
 
         $this->StudentAlotment->recursive = 3;
         $db = $this->StudentAlotment->getDataSource();
-
+        $cn=array();
         if (!empty($conditions)) {
-            $cn = 'StudentAlotment.college_id IN(' . $conditions . ')';
+            $cn[] = 'StudentAlotment.college_id IN(' . $conditions . ')';
         } else {
-            $cn = NULL;
+            $cn[] = NULL;
         }
-
+        
+        if(!empty($course_id))
+        {
+            $cn[] = 'StudentAlotment.course_id IN('.$course_id.')';
+        }else {
+            $cn[] = NULL;
+        }
+        
+        
         $condi = array(
             'conditions' => $cn,
             'fields' => array('StudentAlotment.course_id', 'StudentAlotment.allocation_year',
@@ -434,10 +457,13 @@ class StudentAlotmentsController extends AppController {
             'group' => array('StudentAlotment.college_id',
                 'StudentAlotment.course_id'),
         );
+        
+        $this->Session->delete('collegeid');
+        $this->Session->delete('universityid');
+        $this->Session->delete('courseid');
 
         //$exceptionsadmissions = $this->Session->read('exceptionsadmission');
         $exceptionsadmissions = $this->StudentAlotment->find('all', $condi);
-        // echo "<pre>"; print_r($exceptionsadmissions); die;
         if (!empty($exceptionsadmissions)) {
             $this->set('exceptionsadmissions', $exceptionsadmissions);
             $year = Date('Y');

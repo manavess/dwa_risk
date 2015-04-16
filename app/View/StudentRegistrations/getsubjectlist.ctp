@@ -35,6 +35,5 @@ for ($i = 1; $i <= $stsub; $i++) {
        
         echo "<div>".$option."</div>";
     
-    
 }
 ?>

@@ -44,13 +44,24 @@ $html = "";
 
 $html .=    "<h1 align=\"center\">THE REPUBLIC OF SOUTH SUDAN<br>MINISTRY OF EDUCATION, SCIENCE & TECHNOLOGY<br>Directorate of Admission, Evaluation and Authentication</h1><br><br>";
 $html .=    "<h1 align=\"center\">Results report for the year 2012/2013</h1><br><br>";
-if(!empty($university_id)){
-    //pr($exceptionsadmissions);die;
+if(!empty($university_id && $course_id)){
     $html .= "  <table width=\"100%\" cellspacing=\"0\" cellpadding=\"3\" border=\"1\" >";  
     $html .= "  <tr>
-                <td><b><h2 align=\"center\">".@$this->StdRegistrations->getuniversity($exceptionsadmissions[0]['Colleges']['university_id'])."</h3></b></td></tr></table>";
-            
+                <td><b><h2 align=\"center\">".@$this->StdRegistrations->getuniversity($exceptionsadmissions[0]['Colleges']['university_id'])."</h3></b></td>
+                <td><b><h2 align=\"center\">".@$this->StdRegistrations->getcourse($exceptionsadmissions[0]['StudentAlotment']['course_id'])."</h3></b></td>
+                </tr></table>";
+}else if(!empty($course_id)){
+    $html .= "  <table width=\"100%\" cellspacing=\"0\" cellpadding=\"3\" border=\"1\" >";  
+    $html .= "  <tr>
+                <td><b><h2 align=\"center\">".@$this->StdRegistrations->getcourse($exceptionsadmissions[0]['StudentAlotment']['course_id'])."</h3></b></td>
+                </tr></table>";
+}else if(!empty($university_id)){
+    $html .= "  <table width=\"100%\" cellspacing=\"0\" cellpadding=\"3\" border=\"1\" >";  
+    $html .= "  <tr>
+                <td><b><h2 align=\"center\">".@$this->StdRegistrations->getuniversity($exceptionsadmissions[0]['Colleges']['university_id'])."</h3></b></td>
+                </tr></table>";
 }
+
 $html .= "  <div></div>";
 $html .= "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"3\" border=\"1\" >";
 
@@ -110,16 +121,16 @@ $html .= "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"3\" border=\"1\"
             }
     $html .= "</table>";
     
-//    $html .= "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"3\" border=\"1\">";
-//    $html .= "<tr><td align=\"center\" width=\"42%\">
-//                <b>Total:</b></td>
-//                <td width=\"10%\">".$totalplanned."</td>
-//                <td width=\"23%\"><table><tr><td>".$totalmale."</td><td>".$totalfemale."</td><td>".$totalnominated."</td></tr></table></td>
-//                <td width=\"7%\"></td>
-//                <td width=\"12%\"></td>
-//                <td width=\"6%\">".$totalremarks."</td>
-//                </tr>";
-//    $html .= "</table>";
+    $html .= "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"3\" border=\"1\">";
+    $html .= "<tr><td align=\"center\" width=\"42%\">
+                <b>Total:</b></td>
+                <td width=\"10%\">".$totalplanned."</td>
+                <td width=\"23%\"><table><tr><td>".$totalmale."</td><td>".$totalfemale."</td><td>".$totalnominated."</td></tr></table></td>
+                <td width=\"7%\"></td>
+                <td width=\"12%\"></td>
+                <td width=\"6%\">".$totalremarks."</td>
+                </tr>";
+    $html .= "</table>";
              
 $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 

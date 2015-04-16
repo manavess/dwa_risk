@@ -39,6 +39,12 @@ class StdRegistrationsHelper extends AppHelper {
 
         return $universityname['University']['name'];
     }
+    
+    function getcourse($courseid){
+        $Coursedetails = ClassRegistry::init('Course');
+        $coursename = $Coursedetails->find('first',array('fields',array('name'),'conditions' => array('Course.id'=> $courseid)));
+        return $coursename['Course']['name'];
+    }
 
     function getlastadmper($college_id, $allocyear) {
 
@@ -158,7 +164,6 @@ class StdRegistrationsHelper extends AppHelper {
         }
         return $totalmarkslist;
     }
-
 }
 
 ?>

@@ -65,7 +65,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'login' => 'root',
 		'password' => 'ess',
-		'database' => 'acltest',
+		'database' => 'acltestjuba',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);

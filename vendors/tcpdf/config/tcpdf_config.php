@@ -1,5 +1,5 @@
 <?php
-define('WWW_HOST', "/home/vijay/public_html/dwa_risk/app/");
+define('WWW_HOST', "/home/manav/public_html/dwa_risk/app/");
 
 //echo WWW_HOST .'img'; die;
 //============================================================+
